@@ -95,3 +95,4 @@ def test_audit_invoice_non_inr_currency():
     res = audit_invoice_data(inv)
     assert res["risk"] == "Medium"
     assert any(i["rule_code"] == "CURRENCY_NON_INR" for i in res["issues"])
+

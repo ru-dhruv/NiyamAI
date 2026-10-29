@@ -15,3 +15,4 @@ Both Backend (Member B) and Rule Engine / Assistant (Member C) must strictly use
 | `FIRE_NOC_EXPIRED` | Licences | Commercial premises Fire NOC has expired | High |
 | `OVERDUE_DEADLINE` | Calendar | Statutory filing deadline has passed without filing | Medium |
 | `CA_FLAG_OVERDUE` | CA Flags | Open CA flag unresolved for more than 7 days | Medium |
+

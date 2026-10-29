@@ -293,3 +293,4 @@ def test_milestone_6_flag_to_ca_workflow():
     assert updated_flag["status"] == "resolved"
     assert len(updated_flag["comments"]) == 1
     assert "Asking supplier" in updated_flag["comments"][0]["text"]
+

@@ -208,3 +208,4 @@ Returns full legal rules database from `rules.json`.
   "state": "Maharashtra"
 }
 ```
+

@@ -57,3 +57,4 @@ def test_validate_gstin_empty():
     res = validate_gstin("")
     assert res["valid"] is False
     assert res["rule_code"] == "GSTIN_INVALID"
+

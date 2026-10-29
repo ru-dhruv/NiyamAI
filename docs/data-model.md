@@ -92,3 +92,4 @@ Agreed Firestore structure per Build Specification Part 1, Section 1.4.
 - `daysBefore`: number
 - `channel`: string (`"email"`)
 - `sentAt`: ISO 8601 string
+

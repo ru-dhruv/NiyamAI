@@ -19,3 +19,4 @@ List of environment variable names used across the NiyamAI stack (per Section 5.
 - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`: Firebase auth domain
 - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`: Firebase project ID
 - `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`: Firebase storage bucket
+

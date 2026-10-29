@@ -257,3 +257,4 @@ def extract_invoice(
         "total": 11800.0,
         "currency": "INR",
     }
+

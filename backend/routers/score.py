@@ -47,3 +47,4 @@ def get_score_endpoint(
         "penaltyExposure": biz_data.get("penaltyExposure", 0.0),
         "updatedAt": biz_data.get("scoreUpdatedAt"),
     }
+

@@ -64,3 +64,4 @@ def test_validate_licence_data_blurry_and_not_licence():
     assert any("Blurry image" in w for w in validated["warnings"])
     assert any("does not look like a licence" in w for w in validated["warnings"])
     assert any("Expiry date missing" in w for w in validated["warnings"])
+
