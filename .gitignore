@@ -147,3 +147,13 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Python & Team additions (per Build Spec)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+serviceAccountKey*.json
+.DS_Store
