@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isUser(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    function getBusiness(businessId) {
+      return get(/databases/$(database)/documents/businesses/$(businessId)).data;
+    }
+
+    function isBusinessOwner(businessId) {
+      return isAuthenticated() && getBusiness(businessId).ownerUid == request.auth.uid;
+    }
+
+    function isAssignedCA(businessId) {
+      return isAuthenticated() && request.auth.uid in getBusiness(businessId).caUids;
+    }
+
+    function hasBusinessAccess(businessId) {
+      return isBusinessOwner(businessId) || isAssignedCA(businessId);
+    }
+
+    // 1. Users collection: users/{uid}
+    match /users/{uid} {
+      allow read, write: if isUser(uid);
+
+      // User Chats subcollection: users/{uid}/chats/{chatId}
+      match /chats/{chatId} {
+        allow read, write: if isUser(uid);
+
+        match /messages/{msgId} {
+          allow read, write: if isUser(uid);
+        }
+      }
+    }
+
+    // 2. Businesses collection: businesses/{id}
+    match /businesses/{businessId} {
+      // Owner can read and write; CA can read if in caUids
+      allow read: if isAuthenticated() && (
+        resource.data.ownerUid == request.auth.uid ||
+        request.auth.uid in resource.data.caUids
+      );
+      allow create: if isAuthenticated() && request.resource.data.ownerUid == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.ownerUid == request.auth.uid;
+
+      // Licences subcollection: businesses/{id}/licences/{licenceId}
+      match /licences/{licenceId} {
+        allow read: if hasBusinessAccess(businessId);
+        allow write: if isBusinessOwner(businessId);
+      }
+
+      // Invoices subcollection: businesses/{id}/invoices/{invoiceId}
+      match /invoices/{invoiceId} {
+        allow read: if hasBusinessAccess(businessId);
+        allow write: if isBusinessOwner(businessId);
+      }
+
+      // Flags subcollection: businesses/{id}/flags/{flagId}
+      match /flags/{flagId} {
+        allow read: if hasBusinessAccess(businessId);
+        
+        // Owner can create and update flags
+        allow create: if isBusinessOwner(businessId);
+        allow delete: if isBusinessOwner(businessId);
+
+        // Update allowed for Owner OR CA (CA can only update status and updatedAt)
+        allow update: if isBusinessOwner(businessId) || (
+          isAssignedCA(businessId) &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt'])
+        );
+
+        // Flag Comments subcollection: businesses/{id}/flags/{flagId}/comments/{commentId}
+        match /comments/{commentId} {
+          allow read: if hasBusinessAccess(businessId);
+          allow create, update: if hasBusinessAccess(businessId);
+          allow delete: if isBusinessOwner(businessId) || (isAuthenticated() && resource.data.authorUid == request.auth.uid);
+        }
+      }
+
+      // Reminders subcollection: businesses/{id}/reminders/{reminderId}
+      match /reminders/{reminderId} {
+        allow read: if hasBusinessAccess(businessId);
+        allow write: if isBusinessOwner(businessId);
+      }
+    }
+  }
+}

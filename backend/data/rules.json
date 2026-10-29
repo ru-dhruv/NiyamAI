@@ -1,0 +1,47 @@
+[
+  {
+    "rule_code": "GSTIN_INVALID",
+    "title": "Invalid or Non-Compliant GSTIN on Tax Invoice",
+    "trigger": "Invoice seller or buyer GSTIN fails format or Mod-36 checksum validation",
+    "legal_reference": "Section 122(1)(i) and Section 31 of CGST Act, 2017",
+    "penalty_formula": "₹10,000 or an amount equivalent to the tax evaded, whichever is higher",
+    "source_url": "https://cbic-gst.gov.in/gst-goods-services-tax.html",
+    "last_verified": "2026-10-29"
+  },
+  {
+    "rule_code": "TAX_CALCULATION_MISMATCH",
+    "title": "Tax Computation Mismatch on Invoice",
+    "trigger": "Invoice tax amount does not equal taxable value multiplied by tax rate",
+    "legal_reference": "Section 73 and Section 122(3) of CGST Act, 2017",
+    "penalty_formula": "10% of tax amount or ₹10,000, whichever is higher, plus 18% p.a. interest under Section 50",
+    "source_url": "https://cbic-gst.gov.in/gst-goods-services-tax.html",
+    "last_verified": "2026-10-29"
+  },
+  {
+    "rule_code": "TOTAL_MISMATCH",
+    "title": "Total Amount Mismatch on Invoice",
+    "trigger": "Invoice total does not equal taxable value plus tax amount",
+    "legal_reference": "Rule 46(m) of CGST Rules, 2017",
+    "penalty_formula": "General penalty up to ₹25,000 under Section 125 of CGST Act",
+    "source_url": "https://cbic-gst.gov.in/gst-goods-services-tax.html",
+    "last_verified": "2026-10-29"
+  },
+  {
+    "rule_code": "FSSAI_EXPIRED",
+    "title": "Expired Food Business Operator (FSSAI) Licence",
+    "trigger": "FSSAI licence has passed expiry date without renewal application",
+    "legal_reference": "Section 31 and Section 58 of Food Safety and Standards Act, 2006",
+    "penalty_formula": "₹100 per day late fee during renewal grace period; operating without valid licence attracts imprisonment up to 6 months and fine up to ₹5,00,000",
+    "source_url": "https://fssai.gov.in",
+    "last_verified": "2026-10-29"
+  },
+  {
+    "rule_code": "TRADE_LIC_LAPSE",
+    "title": "Expired Municipal Trade Licence",
+    "trigger": "Municipal trade licence expired",
+    "legal_reference": "Relevant State Municipal Corporation Act",
+    "penalty_formula": "Penalty of 50% to 100% of licence fee plus interest, or business sealing notice",
+    "source_url": "https://mcdonline.nic.in",
+    "last_verified": "2026-10-29"
+  }
+]

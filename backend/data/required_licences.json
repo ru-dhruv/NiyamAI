@@ -1,0 +1,7 @@
+{
+  "food": ["FSSAI", "Trade Licence", "Fire NOC", "GST"],
+  "retail": ["Trade Licence", "Shop and Establishment", "GST"],
+  "manufacturing": ["Factory Licence", "Pollution Control Board NOC", "Fire NOC", "GST"],
+  "services": ["Trade Licence", "GST", "Professional Tax"],
+  "default": ["Trade Licence", "GST"]
+}
