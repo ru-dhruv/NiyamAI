@@ -280,6 +280,26 @@
       "col4Title": "About",
       "team": "Team Dead Neurons",
       "disclaimer": "Guidance, not legal or tax advice. NiyamAI provides automated compliance indicators based on publicly available regulatory schedules."
+    },
+    "assistant": {
+      "launcherLabel": "Ask NiyamAI Assistant",
+      "title": "NiyamAI Assistant",
+      "subtitle": "Grounded on statutory rules",
+      "badge": "Rules Grounded",
+      "disclaimer": "Guidance only, not legal or tax advice. Grounded on official rules.",
+      "placeholder": "Ask a compliance rule or penalty question...",
+      "send": "Send",
+      "close": "Close assistant",
+      "sampleQ1": "What happens if my FSSAI licence expires?",
+      "sampleQ2": "मेरी FSSAI एक्सपायर हो जाए तो पेनल्टी क्या है?",
+      "sampleQ3": "What is the penalty for invalid GSTIN?",
+      "sampleQ4": "Fire NOC renewal rules in Bhopal",
+      "welcome": "Namaste! I am NiyamAI Assistant. Ask me any question about your mandatory licences (FSSAI, Fire NOC, Trade Licence), GST invoice audits, or statutory penalties. I answer strictly from official verified rules.",
+      "notFound": "I don't have a verified rule for this question yet in the statutory ledger. Please use the 'Flag to CA' feature to consult your Chartered Accountant.",
+      "ruleCitation": "Rule Reference",
+      "legalSection": "Legal Section",
+      "penaltyHeading": "Statutory Penalty",
+      "sourceLink": "Official Source"
     }
   }
 }

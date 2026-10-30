@@ -280,6 +280,26 @@
       "col4Title": "[TODO] About",
       "team": "Team Dead Neurons",
       "disclaimer": "[TODO] Guidance, not legal or tax advice. NiyamAI provides automated compliance indicators based on publicly available regulatory schedules."
+    },
+    "assistant": {
+      "launcherLabel": "NiyamAI असिस्टेंट से पूछें",
+      "title": "NiyamAI असिस्टेंट",
+      "subtitle": "सत्यापित नियमों पर आधारित",
+      "badge": "नियम आधारित",
+      "disclaimer": "केवल मार्गदर्शन, विधिक या कर सलाह नहीं। आधिकारिक नियमों पर आधारित।",
+      "placeholder": "नियम या पेनल्टी के बारे में पूछें...",
+      "send": "भेजें",
+      "close": "असिस्टेंट बंद करें",
+      "sampleQ1": "What happens if my FSSAI licence expires?",
+      "sampleQ2": "मेरी FSSAI एक्सपायर हो जाए तो पेनल्टी क्या है?",
+      "sampleQ3": "गलत GSTIN पर क्या पेनल्टी है?",
+      "sampleQ4": "भोपाल में फायर एनओसी रिन्यूअल नियम",
+      "welcome": "नमस्ते! मैं NiyamAI असिस्टेंट हूँ। मुझसे अपने अनिवार्य लाइसेंस (FSSAI, फायर एनओसी, ट्रेड लाइसेंस), जीएसटी इनवॉइस ऑडिट या नियमों के जुर्माने के बारे में पूछें। मैं केवल आधिकारिक नियमों के आधार पर जवाब देता हूँ।",
+      "notFound": "मेरे पास अभी इस सवाल का आधिकारिक नियम डेटाबेस में नहीं है। विस्तृत विधिक सलाह के लिए कृपया 'Flag to CA' के माध्यम से अपने सीए से संपर्क करें।",
+      "ruleCitation": "नियम संदर्भ",
+      "legalSection": "कानूनी धारा",
+      "penaltyHeading": "कानूनी पेनल्टी",
+      "sourceLink": "आधिकारिक स्रोत"
     }
   }
 }
