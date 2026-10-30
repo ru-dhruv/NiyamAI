@@ -75,7 +75,7 @@ export function NavDrawer({
   const tDrawer = useTranslations("drawer");
   const drawerRef = React.useRef<HTMLDivElement>(null);
   const closeButtonRef = React.useRef<HTMLButtonElement>(null);
-  const { user, isCA, logout } = useAuth();
+  const { user, isCA, ready, logout } = useAuth();
 
   // Trap focus inside the drawer when open
   React.useEffect(() => {
@@ -187,10 +187,10 @@ export function NavDrawer({
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
                 <p className="text-sm font-bold text-white truncate leading-tight font-heading">
-                  {user?.name || businessName}
+                  {ready && user ? user.name : businessName}
                 </p>
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20 text-white shrink-0">
-                  {user?.role || "Owner"}
+                  {ready && user ? user.role : "Owner"}
                 </span>
               </div>
               <p className="text-xs text-[#86e2c3] leading-tight mt-1">

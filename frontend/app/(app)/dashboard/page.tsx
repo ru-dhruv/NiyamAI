@@ -28,7 +28,7 @@ import type { Business, CalendarItem, Licence } from "@/mocks/types";
 export default function DashboardPage() {
   const t = useTranslations("dashboard");
   const { openSheet } = useDetailSheet();
-  const { isCA, user } = useAuth();
+  const { isCA, user, ready } = useAuth();
 
   const [business, setBusiness] = React.useState<Business | null>(null);
   const [calendarItems, setCalendarItems] = React.useState<CalendarItem[]>([]);
@@ -241,7 +241,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Row 2: Action Card with Pill Buttons — CA CANNOT SEE "Add licence" or "Check invoice" */}
-      {!isCA ? (
+      {!ready || !isCA ? (
         <Card className="p-7">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
             <div>

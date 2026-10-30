@@ -17,7 +17,7 @@ import type { Licence } from "@/mocks/types";
 export default function LicencesPage() {
   const t = useTranslations("licences");
   const { openSheet } = useDetailSheet();
-  const { isCA } = useAuth();
+  const { isCA, ready } = useAuth();
 
   const [licences, setLicences] = React.useState<Licence[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -66,7 +66,7 @@ export default function LicencesPage() {
           </h1>
           <p className="text-sm text-[var(--ny-muted)] mt-1">{t("subtitle")}</p>
         </div>
-        {!isCA && (
+        {(!ready || !isCA) && (
           <Button
             variant="primary"
             className="gap-2 self-start sm:self-auto font-bold rounded-full"

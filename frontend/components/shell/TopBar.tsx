@@ -6,6 +6,7 @@ import { Bell, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/lib/auth";
 
 interface TopBarProps {
   onMenuClick: () => void;
@@ -20,6 +21,7 @@ export function TopBar({
   pageTitle,
   overdueCount = 0,
 }: TopBarProps) {
+  const { user, ready } = useAuth();
   return (
     <header
       className={cn(
@@ -95,14 +97,22 @@ export function TopBar({
           <Button
             variant="ghost"
             size="icon"
-            aria-label="Open account menu"
+            aria-label={
+              ready && user
+                ? `Account — ${user.name} (${user.role})`
+                : "Open account menu"
+            }
             className="rounded-full text-[var(--ny-text)] hover:bg-[var(--ny-bg)]"
           >
             <span
-              className="h-8 w-8 rounded-full bg-[#e5f3ee] dark:bg-[#0d5b44]/30 border border-[var(--ny-border)] flex items-center justify-center"
+              className="h-8 w-8 rounded-full bg-[#e5f3ee] dark:bg-[#0d5b44]/30 border border-[var(--ny-border)] flex items-center justify-center text-xs font-bold text-[var(--ny-forest)]"
               aria-hidden="true"
             >
-              <User className="h-4 w-4 text-[var(--ny-forest)]" />
+              {ready && user ? (
+                user.role === "CA" ? "CA" : user.name.slice(0, 1).toUpperCase()
+              ) : (
+                <User className="h-4 w-4 text-[var(--ny-forest)]" />
+              )}
             </span>
           </Button>
         </Link>

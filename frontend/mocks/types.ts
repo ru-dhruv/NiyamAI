@@ -128,20 +128,20 @@ export function licenceToScanResult(lic: LicenceRaw): LicenceScanResult {
  * - Expiring: 30 days or fewer remaining (>= 0 and <= 30 days)
  * - Valid: more than 30 days remaining (> 30 days)
  */
-export function computeLicenceStatus(expiryDateStr: string): {
+export function computeLicenceStatus(expiryDateStr: string, refDate?: Date): {
   status: LicenceStatus;
   daysRemaining: number;
 } {
   if (!expiryDateStr) {
     return { status: "expired", daysRemaining: -999 };
   }
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const now = refDate || new Date();
+  const today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
   const [year, month, day] = expiryDateStr.split("-").map(Number);
   if (!year || !month || !day) {
     return { status: "expired", daysRemaining: -999 };
   }
-  const expiry = new Date(year, month - 1, day);
+  const expiry = new Date(Date.UTC(year, month - 1, day));
 
   const diffMs = expiry.getTime() - today.getTime();
   const daysRemaining = Math.ceil(diffMs / (1000 * 60 * 60 * 24));

@@ -17,6 +17,7 @@ interface AuthContextType {
   role: UserRole | null;
   isOwner: boolean;
   isCA: boolean;
+  ready: boolean;
   loginAs: (role: UserRole) => void;
   logout: () => void;
 }
@@ -26,6 +27,7 @@ const AuthContext = React.createContext<AuthContextType>({
   role: null,
   isOwner: false,
   isCA: false,
+  ready: false,
   loginAs: () => {},
   logout: () => {},
 });
@@ -35,27 +37,33 @@ const STORAGE_KEY = "niyamai_auth_user";
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [user, setUser] = React.useState<AuthUser | null>(() => {
-    if (typeof window !== "undefined") {
+  const [user, setUser] = React.useState<AuthUser | null>(null);
+  const [ready, setReady] = React.useState(false);
+
+  // Read storage ONLY inside useEffect after mount
+  React.useEffect(() => {
+    try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        try {
-          return JSON.parse(saved);
-        } catch {
-          // ignore error
-        }
+        setUser(JSON.parse(saved));
+      } else {
+        // Default to Owner in demo mode if initialized
+        const defaultUser: AuthUser = {
+          uid: "usr_001",
+          role: "Owner",
+          name: "Ramesh Sharma",
+          email: "ramesh@sharmakiranabpl.com",
+          businessId: "biz_001",
+        };
+        setUser(defaultUser);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultUser));
       }
-      // Default to Owner in demo mode if initialized
-      return {
-        uid: "usr_001",
-        role: "Owner",
-        name: "Ramesh Sharma",
-        email: "ramesh@sharmakiranabpl.com",
-        businessId: "biz_001",
-      };
+    } catch {
+      // ignore error
+    } finally {
+      setReady(true);
     }
-    return null;
-  });
+  }, []);
 
   const loginAs = React.useCallback(
     (role: UserRole) => {
@@ -88,13 +96,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [router]);
 
   // Protect app pages: if user is not signed in and visits an app route (not / or /login or /onboarding)
+  // Must wait for ready so a refresh does not bounce a signed-in demo user to login
   React.useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (!ready) return;
     const isPublic = pathname === "/" || pathname === "/login" || pathname === "/onboarding";
     if (!user && !isPublic) {
       router.push("/login");
     }
-  }, [user, pathname, router]);
+  }, [ready, user, pathname, router]);
 
   const value = React.useMemo(() => {
     const role = user?.role ?? null;
@@ -103,10 +112,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       role,
       isOwner: role === "Owner",
       isCA: role === "CA",
+      ready,
       loginAs,
       logout,
     };
-  }, [user, loginAs, logout]);
+  }, [user, ready, loginAs, logout]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
