@@ -75,7 +75,7 @@ export function LandingHeader() {
           </div>
 
           {/* Pill CTA */}
-          <Link href="/dashboard" tabIndex={-1}>
+          <Link href="/login" tabIndex={-1}>
             <Button
               variant="primary"
               size="default"

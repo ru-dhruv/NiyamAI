@@ -76,7 +76,7 @@ export function LandingHero() {
         {/* CTA Buttons */}
         <Reveal delay={3}>
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-3">
-            <Link href="/dashboard" tabIndex={-1}>
+            <Link href="/login" tabIndex={-1}>
               <Button
                 variant="primary"
                 size="lg"
@@ -86,7 +86,7 @@ export function LandingHero() {
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Button>
             </Link>
-            <Link href="/ca" tabIndex={-1}>
+            <Link href="/login" tabIndex={-1}>
               <Button
                 variant="outline"
                 size="lg"

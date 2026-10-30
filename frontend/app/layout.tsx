@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope, Inter, Noto_Sans_Devanagari } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/components/language-provider";
+import { AuthProvider } from "@/lib/auth";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -46,7 +47,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider>
-            {children}
+            <AuthProvider>
+              {children}
+            </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

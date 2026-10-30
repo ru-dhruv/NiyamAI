@@ -2,9 +2,8 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
-import { AlertTriangle, ShieldCheck, ArrowRight, BookOpen, AlertOctagon } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { AlertTriangle, ArrowRight, BookOpen, Scale, Info } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ErrorState } from "@/components/ui/error-state";
@@ -42,15 +41,20 @@ export default function PenaltiesPage() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <Skeleton className="h-20 rounded-card" />
-        <Skeleton className="h-48 rounded-card" />
-        <Skeleton className="h-64 rounded-card" />
+        <Skeleton className="h-20 rounded-[22px]" />
+        <Skeleton className="h-48 rounded-[22px]" />
+        <Skeleton className="h-64 rounded-[22px]" />
       </div>
     );
   }
 
   if (error || !business) {
-    return <ErrorState message="Could not load compliance rule directory." onRetry={loadPenaltiesData} />;
+    return (
+      <ErrorState
+        message="Could not load compliance rule directory."
+        onRetry={loadPenaltiesData}
+      />
+    );
   }
 
   // Open lapses from current mock business profile
@@ -58,45 +62,73 @@ export default function PenaltiesPage() {
     {
       lapse: "Commercial Premises Fire Safety NOC Expired",
       rule_code: "FIRE_NOC_EXPIRED",
-      indicativePenalty: "₹15,000 (estimated late regularisation)",
-      severity: "high",
+      indicativePenalty: "₹25,000",
+      penaltyDetail: "Sealing of premises plus indicative municipal compound penalty",
+      severity: "High",
     },
     {
       lapse: "FSSAI Food Business Licence Expiring Within 20 Days",
       rule_code: "FSSAI_EXPIRING",
-      indicativePenalty: "₹100/day after expiry date",
-      severity: "medium",
+      indicativePenalty: "₹100/day",
+      penaltyDetail: "Late filing penalty after expiry date",
+      severity: "Medium",
     },
     {
       lapse: "Seller GSTIN Mod-36 Checksum Failure on INV-2026-041",
       rule_code: "GSTIN_INVALID",
-      indicativePenalty: "₹10,000 or input credit disallowance",
-      severity: "high",
+      indicativePenalty: "₹8,100 ITC",
+      penaltyDetail: "Disallowance of input credit under Sec 16(2)",
+      severity: "High",
     },
   ];
 
   return (
-    <div className="space-y-6">
-      {/* Title */}
+    <div className="space-y-8 pb-12">
+      {/* Title & Guidance Notice */}
       <div>
-        <h1 className="text-title text-[var(--text)]">{t("title")}</h1>
-        {/* Verification note required by spec */}
-        <div className="mt-2 p-3 bg-[var(--brand-subtle)] border border-[var(--border)] rounded-card text-muted-size text-[var(--text)] flex items-start gap-2.5">
-          <BookOpen className="h-4 w-4 text-[var(--brand)] shrink-0 mt-0.5" aria-hidden="true" />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span className="font-semibold text-[var(--brand)]">Regulatory Guidance Notice: </span>
-            <span>
-              This information serves as compliance guidance and does NOT constitute formal legal or tax advice. All statutory rules and penalty formulas were verified against official central and state notifications as of <strong className="font-semibold">2026-10-29</strong>.
+            <h1 className="font-heading font-extrabold text-3xl sm:text-4xl text-[var(--ny-text)] tracking-tight">
+              {t("title")}
+            </h1>
+            <p className="text-sm text-[var(--ny-muted)] mt-1">
+              Deterministic statutory calculation rules and penalty triggers
+            </p>
+          </div>
+          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[var(--ny-surface)] border border-[var(--ny-border)] text-[var(--ny-muted)] shadow-sm self-start sm:self-auto flex items-center gap-1.5">
+            <Info className="h-3.5 w-3.5 text-[var(--ny-forest)]" />
+            <span>Sample Data · Verified Rule Table</span>
+          </span>
+        </div>
+
+        {/* Prominent Statutory Disclaimer */}
+        <div className="mt-4 p-4 bg-[#e5f3ee] dark:bg-[#0d5b44]/20 border border-[var(--ny-forest)]/30 rounded-[20px] text-xs text-[var(--ny-text)] flex items-start gap-3">
+          <BookOpen className="h-5 w-5 text-[var(--ny-forest)] shrink-0 mt-0.5" aria-hidden="true" />
+          <div className="space-y-1">
+            <span className="font-bold text-[var(--ny-forest)] block">
+              Guidance, not legal or tax advice.
             </span>
+            <p className="text-[var(--ny-muted)] leading-relaxed">
+              All figures and formulas are based on publicly verified official central and state
+              gazette notifications as of <strong className="font-semibold text-[var(--ny-text)]">2026-10-29</strong>.
+              Penalty amounts are indicative sample assessments and must be reviewed with your Chartered Accountant.
+            </p>
           </div>
         </div>
       </div>
 
       {/* Table 1: Open Lapses */}
-      <Card className="p-0 overflow-hidden">
-        <div className="p-4 border-b border-[var(--border)] bg-[var(--panel)]">
-          <h2 className="text-body font-semibold text-[var(--text)]">{t("openLapsesTitle")}</h2>
-          <p className="text-muted-size text-[var(--muted)]">{t("openLapsesSubtitle")}</p>
+      <Card className="p-0 overflow-hidden rounded-[22px]">
+        <div className="p-5 border-b border-[var(--ny-border)] bg-[var(--ny-surface)] flex items-center justify-between">
+          <div>
+            <h2 className="font-heading font-bold text-base text-[var(--ny-text)]">
+              {t("openLapsesTitle")}
+            </h2>
+            <p className="text-xs text-[var(--ny-muted)] mt-0.5">{t("openLapsesSubtitle")}</p>
+          </div>
+          <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[var(--ny-status-red-bg)] text-[var(--ny-status-red)] border border-[var(--ny-status-red-border)]">
+            3 Active Lapses
+          </span>
         </div>
 
         {openLapses.length === 0 ? (
@@ -107,19 +139,19 @@ export default function PenaltiesPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse" role="table">
               <thead>
-                <tr className="border-b border-[var(--border)] bg-[var(--background)] text-muted-size text-[var(--muted)] font-medium">
-                  <th scope="col" className="p-4">{t("tableHeadLapse")}</th>
+                <tr className="border-b border-[var(--ny-border)] bg-[var(--ny-bg)] text-xs text-[var(--ny-muted)] font-bold uppercase tracking-wider">
+                  <th scope="col" className="p-4 pl-6">{t("tableHeadLapse")}</th>
                   <th scope="col" className="p-4">{t("tableHeadRuleCode")}</th>
                   <th scope="col" className="p-4">{t("tableHeadEstPenalty")}</th>
-                  <th scope="col" className="p-4 text-right">Details</th>
+                  <th scope="col" className="p-4 pr-6 text-right">Details</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[var(--border)] text-body">
+              <tbody className="divide-y divide-[var(--ny-border)] text-xs">
                 {openLapses.map((item, idx) => (
                   <tr
                     key={idx}
                     onClick={() => openSheet("penalty-rule", item.rule_code)}
-                    className="hover:bg-[var(--background)] cursor-pointer transition-colors"
+                    className="hover:bg-[var(--ny-bg)] cursor-pointer transition-colors"
                     tabIndex={0}
                     role="button"
                     onKeyDown={(e) => {
@@ -130,17 +162,21 @@ export default function PenaltiesPage() {
                     }}
                     aria-label={`View rule details for ${item.lapse}`}
                   >
-                    <td className="p-4">
-                      <div className="font-semibold text-[var(--text)]">{item.lapse}</div>
+                    <td className="p-4 pl-6">
+                      <div className="font-bold text-sm text-[var(--ny-text)]">{item.lapse}</div>
+                      <span className="text-[11px] text-[var(--ny-muted)]">{item.penaltyDetail}</span>
                     </td>
-                    <td className="p-4 font-mono text-muted-size text-[var(--muted)]">
+                    <td className="p-4 font-mono font-bold text-xs text-[var(--ny-forest)]">
                       {item.rule_code}
                     </td>
-                    <td className="p-4 text-[var(--status-red)] font-semibold text-muted-size">
+                    <td className="p-4 font-extrabold text-sm text-[var(--ny-status-red)]">
                       {item.indicativePenalty}
+                      <span className="text-[10px] font-normal text-[var(--ny-muted)] block">
+                        Indicative Sample
+                      </span>
                     </td>
-                    <td className="p-4 text-right">
-                      <span className="text-muted-size font-medium text-[var(--brand)] inline-flex items-center gap-1">
+                    <td className="p-4 pr-6 text-right">
+                      <span className="text-xs font-semibold text-[var(--ny-forest)] inline-flex items-center gap-1">
                         View Rule
                         <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                       </span>
@@ -154,31 +190,33 @@ export default function PenaltiesPage() {
       </Card>
 
       {/* Table 2: Full Rules Directory */}
-      <Card className="p-0 overflow-hidden">
-        <div className="p-4 border-b border-[var(--border)] bg-[var(--panel)]">
-          <h2 className="text-body font-semibold text-[var(--text)]">{t("rulesDirectoryTitle")}</h2>
-          <p className="text-muted-size text-[var(--muted)]">
-            Canonical table of statutory compliance triggers and formulas
+      <Card className="p-0 overflow-hidden rounded-[22px]">
+        <div className="p-5 border-b border-[var(--ny-border)] bg-[var(--ny-surface)]">
+          <h2 className="font-heading font-bold text-base text-[var(--ny-text)]">
+            {t("rulesDirectoryTitle")}
+          </h2>
+          <p className="text-xs text-[var(--ny-muted)] mt-0.5">
+            Canonical table of statutory compliance triggers, official references &amp; formulas
           </p>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse" role="table">
             <thead>
-              <tr className="border-b border-[var(--border)] bg-[var(--background)] text-muted-size text-[var(--muted)] font-medium">
-                <th scope="col" className="p-4">Rule Title</th>
+              <tr className="border-b border-[var(--ny-border)] bg-[var(--ny-bg)] text-xs text-[var(--ny-muted)] font-bold uppercase tracking-wider">
+                <th scope="col" className="p-4 pl-6">Rule Title</th>
                 <th scope="col" className="p-4">Rule Code</th>
                 <th scope="col" className="p-4">{t("tableHeadLegalRef")}</th>
                 <th scope="col" className="p-4">{t("tableHeadFormula")}</th>
-                <th scope="col" className="p-4 text-right">Action</th>
+                <th scope="col" className="p-4 pr-6 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[var(--border)] text-body">
+            <tbody className="divide-y divide-[var(--ny-border)] text-xs">
               {rules.map((rule) => (
                 <tr
                   key={rule.rule_code}
                   onClick={() => openSheet("penalty-rule", rule.rule_code)}
-                  className="hover:bg-[var(--background)] cursor-pointer transition-colors"
+                  className="hover:bg-[var(--ny-bg)] cursor-pointer transition-colors"
                   tabIndex={0}
                   role="button"
                   onKeyDown={(e) => {
@@ -189,15 +227,21 @@ export default function PenaltiesPage() {
                   }}
                   aria-label={`View ${rule.title}`}
                 >
-                  <td className="p-4 font-semibold text-[var(--text)] max-w-xs">{rule.title}</td>
-                  <td className="p-4 font-mono text-muted-size text-[var(--muted)]">{rule.rule_code}</td>
-                  <td className="p-4 text-muted-size text-[var(--muted)]">{rule.legal_reference}</td>
-                  <td className="p-4 text-muted-size text-[var(--status-amber)] font-medium">
+                  <td className="p-4 pl-6 font-bold text-sm text-[var(--ny-text)] max-w-xs">
+                    {rule.title}
+                  </td>
+                  <td className="p-4 font-mono font-bold text-xs text-[var(--ny-muted)]">
+                    {rule.rule_code}
+                  </td>
+                  <td className="p-4 text-xs text-[var(--ny-muted)] max-w-xs leading-relaxed">
+                    {rule.legal_reference}
+                  </td>
+                  <td className="p-4 text-xs text-[var(--ny-status-amber)] font-semibold max-w-xs leading-relaxed">
                     {rule.penalty_formula}
                   </td>
-                  <td className="p-4 text-right">
-                    <span className="text-muted-size font-medium text-[var(--brand)] inline-flex items-center gap-1">
-                      Rule
+                  <td className="p-4 pr-6 text-right">
+                    <span className="text-xs font-semibold text-[var(--ny-forest)] inline-flex items-center gap-1">
+                      Details
                       <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                     </span>
                   </td>

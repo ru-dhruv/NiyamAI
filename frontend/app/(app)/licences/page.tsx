@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useTranslations } from "next-intl";
 import { FilePlus2, FileCheck2, ArrowRight } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { StatusChip } from "@/components/ui/status-chip";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -11,11 +11,13 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ErrorState } from "@/components/ui/error-state";
 import { useDetailSheet } from "@/components/shell/DetailSheet";
 import { getLicences } from "@/mocks/loader";
+import { useAuth } from "@/lib/auth";
 import type { Licence } from "@/mocks/types";
 
 export default function LicencesPage() {
   const t = useTranslations("licences");
   const { openSheet } = useDetailSheet();
+  const { isCA } = useAuth();
 
   const [licences, setLicences] = React.useState<Licence[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -42,10 +44,10 @@ export default function LicencesPage() {
     return (
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <Skeleton className="h-8 w-48" />
-          <Skeleton className="h-11 w-36" />
+          <Skeleton className="h-8 w-48 rounded-xl" />
+          <Skeleton className="h-11 w-36 rounded-full" />
         </div>
-        <Skeleton className="h-64 rounded-card" />
+        <Skeleton className="h-64 rounded-[22px]" />
       </div>
     );
   }
@@ -55,51 +57,54 @@ export default function LicencesPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-12">
       {/* Header with single primary button */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-title text-[var(--text)]">{t("title")}</h1>
-          <p className="text-muted-size text-[var(--muted)] mt-1">{t("subtitle")}</p>
+          <h1 className="font-heading font-extrabold text-3xl sm:text-4xl text-[var(--ny-text)] tracking-tight">
+            {t("title")}
+          </h1>
+          <p className="text-sm text-[var(--ny-muted)] mt-1">{t("subtitle")}</p>
         </div>
-        {/* Exactly one primary button per screen */}
-        <Button
-          variant="primary"
-          className="gap-2 self-start sm:self-auto"
-          onClick={() => openSheet("add-licence")}
-        >
-          <FilePlus2 className="h-4 w-4" aria-hidden="true" />
-          <span>{t("addLicenceButton")}</span>
-        </Button>
+        {!isCA && (
+          <Button
+            variant="primary"
+            className="gap-2 self-start sm:self-auto font-bold rounded-full"
+            onClick={() => openSheet("add-licence")}
+          >
+            <FilePlus2 className="h-4 w-4" aria-hidden="true" />
+            <span>{t("addLicenceButton")}</span>
+          </Button>
+        )}
       </div>
 
       {licences.length === 0 ? (
         <EmptyState
           message={t("emptyMessage")}
-          actionLabel={t("addFirstLicence")}
-          onAction={() => openSheet("add-licence")}
+          actionLabel={!isCA ? t("addFirstLicence") : undefined}
+          onAction={!isCA ? () => openSheet("add-licence") : undefined}
           icon={FileCheck2}
         />
       ) : (
-        <Card className="p-0 overflow-hidden">
+        <Card className="p-0 overflow-hidden rounded-[22px]">
           {/* Desktop Table View (sm+) */}
           <div className="hidden sm:block overflow-x-auto">
             <table className="w-full text-left border-collapse" role="table">
               <thead>
-                <tr className="border-b border-[var(--border)] bg-[var(--background)] text-muted-size text-[var(--muted)] font-medium">
-                  <th scope="col" className="p-4">{t("tableHeadLicence")}</th>
+                <tr className="border-b border-[var(--ny-border)] bg-[var(--ny-bg)] text-xs text-[var(--ny-muted)] font-bold uppercase tracking-wider">
+                  <th scope="col" className="p-4 pl-6">{t("tableHeadLicence")}</th>
                   <th scope="col" className="p-4">{t("tableHeadNumber")}</th>
                   <th scope="col" className="p-4">{t("tableHeadExpiry")}</th>
                   <th scope="col" className="p-4">{t("tableHeadStatus")}</th>
-                  <th scope="col" className="p-4 text-right">Action</th>
+                  <th scope="col" className="p-4 pr-6 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[var(--border)] text-body">
+              <tbody className="divide-y divide-[var(--ny-border)] text-xs">
                 {licences.map((lic) => (
                   <tr
                     key={lic.id}
                     onClick={() => openSheet("licence", lic.id)}
-                    className="hover:bg-[var(--background)] cursor-pointer transition-colors"
+                    className="hover:bg-[var(--ny-bg)] cursor-pointer transition-colors"
                     tabIndex={0}
                     role="button"
                     onKeyDown={(e) => {
@@ -110,11 +115,11 @@ export default function LicencesPage() {
                     }}
                     aria-label={`View ${lic.type} licence details`}
                   >
-                    <td className="p-4 font-semibold text-[var(--text)]">{lic.type}</td>
-                    <td className="p-4 font-mono text-muted-size text-[var(--muted)]">{lic.number}</td>
-                    <td className="p-4 text-[var(--text)]">
-                      <div>{lic.expiry}</div>
-                      <span className="text-muted-size text-[var(--muted)]">
+                    <td className="p-4 pl-6 font-bold text-sm text-[var(--ny-text)]">{lic.type}</td>
+                    <td className="p-4 font-mono text-xs text-[var(--ny-muted)]">{lic.number}</td>
+                    <td className="p-4 text-[var(--ny-text)]">
+                      <div className="font-semibold">{lic.expiry}</div>
+                      <span className="text-[11px] text-[var(--ny-muted)]">
                         {lic.daysRemaining < 0
                           ? `Expired ${Math.abs(lic.daysRemaining)}d ago`
                           : `${lic.daysRemaining}d remaining`}
@@ -123,9 +128,9 @@ export default function LicencesPage() {
                     <td className="p-4">
                       <StatusChip status={lic.status} />
                     </td>
-                    <td className="p-4 text-right">
-                      <span className="text-muted-size font-medium text-[var(--brand)] inline-flex items-center gap-1">
-                        View
+                    <td className="p-4 pr-6 text-right">
+                      <span className="text-xs font-semibold text-[var(--ny-forest)] inline-flex items-center gap-1">
+                        View Details
                         <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                       </span>
                     </td>
@@ -135,13 +140,13 @@ export default function LicencesPage() {
             </table>
           </div>
 
-          {/* Phone Cards View (< sm) */}
-          <div className="sm:hidden divide-y divide-[var(--border)]">
+          {/* Mobile Cards View (< sm) */}
+          <div className="sm:hidden divide-y divide-[var(--ny-border)]">
             {licences.map((lic) => (
               <div
                 key={lic.id}
                 onClick={() => openSheet("licence", lic.id)}
-                className="p-4 space-y-2 cursor-pointer hover:bg-[var(--background)] transition-colors active:bg-[var(--background)]"
+                className="p-4 space-y-2.5 cursor-pointer hover:bg-[var(--ny-bg)] transition-colors active:bg-[var(--ny-bg)]"
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => {
@@ -154,14 +159,14 @@ export default function LicencesPage() {
               >
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="text-body font-semibold text-[var(--text)]">{lic.type}</h3>
-                    <p className="text-muted-size font-mono text-[var(--muted)] mt-0.5">{lic.number}</p>
+                    <h3 className="font-bold text-sm text-[var(--ny-text)]">{lic.type}</h3>
+                    <p className="text-xs font-mono text-[var(--ny-muted)] mt-0.5">{lic.number}</p>
                   </div>
                   <StatusChip status={lic.status} />
                 </div>
-                <div className="flex justify-between items-center text-muted-size pt-1 text-[var(--muted)]">
+                <div className="flex justify-between items-center text-xs pt-1 text-[var(--ny-muted)]">
                   <span>Expiry: {lic.expiry}</span>
-                  <span className="text-[var(--brand)] font-medium flex items-center gap-1">
+                  <span className="text-[var(--ny-forest)] font-semibold flex items-center gap-1">
                     Details
                     <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </span>

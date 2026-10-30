@@ -10,6 +10,7 @@ import {
   ArrowRight,
   ShieldAlert,
   BarChart3,
+  Briefcase,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,11 +22,13 @@ import { StatusChip } from "@/components/ui/status-chip";
 import { CountUp } from "@/components/ui/count-up";
 import { useDetailSheet } from "@/components/shell/DetailSheet";
 import { getBusiness, getCalendarItems, getLicences } from "@/mocks/loader";
+import { useAuth } from "@/lib/auth";
 import type { Business, CalendarItem, Licence } from "@/mocks/types";
 
 export default function DashboardPage() {
   const t = useTranslations("dashboard");
   const { openSheet } = useDetailSheet();
+  const { isCA, user } = useAuth();
 
   const [business, setBusiness] = React.useState<Business | null>(null);
   const [calendarItems, setCalendarItems] = React.useState<CalendarItem[]>([]);
@@ -90,6 +93,12 @@ export default function DashboardPage() {
   // Items due within 30 days or overdue
   const dueIn30Days = calendarItems.filter((i) => i.daysLeft <= 30);
 
+  // Dynamic values from scoreBreakdown
+  const licenceBreakdown = business.scoreBreakdown.find((b) => b.category === "Licences");
+  const invoiceBreakdown = business.scoreBreakdown.find((b) => b.category === "Invoices");
+  const flagBreakdown = business.scoreBreakdown.find((b) => b.category === "CA Flags");
+  const filingBreakdown = business.scoreBreakdown.find((b) => b.category === "Filing Deadlines");
+
   return (
     <div className="space-y-8 pb-12">
       {/* Page Title Header */}
@@ -104,7 +113,7 @@ export default function DashboardPage() {
         </div>
         <div className="flex items-center gap-3">
           <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[var(--ny-surface)] border border-[var(--ny-border)] text-[var(--ny-muted)] shadow-sm">
-            Last verified: Today
+            Sample Data · Last verified: Today
           </span>
         </div>
       </div>
@@ -119,7 +128,7 @@ export default function DashboardPage() {
                 {t("healthScoreTitle")}
               </span>
               <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-[#86e2c3]">
-                Verified
+                Sample Score
               </span>
             </div>
             <div className="flex items-center justify-between my-2">
@@ -129,7 +138,7 @@ export default function DashboardPage() {
                   <span className="text-xl font-medium text-white/60 ml-1">/100</span>
                 </div>
                 <p className="text-xs text-[#86e2c3] font-semibold mt-1">
-                  Needs Attention (3 lapses)
+                  {business.healthScore < 80 ? "Needs Attention (Active lapses)" : "Good Standing"}
                 </p>
               </div>
               <div className="bg-white/10 p-2 rounded-full">
@@ -231,40 +240,66 @@ export default function DashboardPage() {
         </Card>
       </div>
 
-      {/* Row 2: Action Card with Pill Buttons */}
-      <Card className="p-7">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
-          <div>
-            <h3 className="font-heading font-bold text-2xl text-[var(--ny-text)]">
-              {t("quickActionsTitle")}
-            </h3>
-            <p className="text-sm text-[var(--ny-muted)] mt-1 leading-relaxed">
-              Upload compliance documents for automated scanning and rule auditing
-            </p>
+      {/* Row 2: Action Card with Pill Buttons — CA CANNOT SEE "Add licence" or "Check invoice" */}
+      {!isCA ? (
+        <Card className="p-7">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-5">
+            <div>
+              <h3 className="font-heading font-bold text-2xl text-[var(--ny-text)]">
+                {t("quickActionsTitle")}
+              </h3>
+              <p className="text-sm text-[var(--ny-muted)] mt-1 leading-relaxed">
+                Upload compliance documents for automated scanning and rule auditing
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              {/* Exactly ONE Primary button per screen */}
+              <Button
+                variant="primary"
+                size="lg"
+                className="gap-2 w-full sm:w-auto font-bold rounded-full"
+                onClick={() => openSheet("add-licence")}
+              >
+                <FilePlus2 className="h-5 w-5" aria-hidden="true" />
+                <span>{t("addLicenceAction")}</span>
+              </Button>
+              <Button
+                variant="secondary"
+                size="lg"
+                className="gap-2 w-full sm:w-auto font-bold rounded-full"
+                onClick={() => openSheet("invoice", "inv_001")}
+              >
+                <FileCheck2 className="h-5 w-5 text-[var(--ny-muted)]" aria-hidden="true" />
+                <span>{t("checkInvoiceAction")}</span>
+              </Button>
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            {/* Exactly ONE Primary button per screen */}
-            <Button
-              variant="primary"
-              size="lg"
-              className="gap-2 w-full sm:w-auto font-bold rounded-full"
-              onClick={() => openSheet("add-licence")}
-            >
-              <FilePlus2 className="h-5 w-5" aria-hidden="true" />
-              <span>{t("addLicenceAction")}</span>
-            </Button>
-            <Button
-              variant="secondary"
-              size="lg"
-              className="gap-2 w-full sm:w-auto font-bold rounded-full"
-              onClick={() => openSheet("invoice", "inv_001")}
-            >
-              <FileCheck2 className="h-5 w-5 text-[var(--ny-muted)]" aria-hidden="true" />
-              <span>{t("checkInvoiceAction")}</span>
-            </Button>
+        </Card>
+      ) : (
+        <Card className="p-6 bg-[#e5f3ee] dark:bg-[#0d5b44]/20 border border-[var(--ny-forest)]/30">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-full bg-[var(--ny-forest)] text-white flex items-center justify-center shrink-0">
+                <Briefcase className="h-5 w-5" />
+              </div>
+              <div>
+                <h3 className="font-heading font-bold text-base text-[var(--ny-text)]">
+                  CA Advisor View
+                </h3>
+                <p className="text-xs text-[var(--ny-muted)]">
+                  You are logged in as Chartered Accountant. Document uploading is restricted to the Business Owner.
+                </p>
+              </div>
+            </div>
+            <a href="/ca">
+              <Button variant="primary" size="sm" className="rounded-full font-bold text-xs gap-1">
+                <span>Open CA Workspace</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Button>
+            </a>
           </div>
-        </div>
-      </Card>
+        </Card>
+      )}
 
       {/* Row 3: Score Breakdown with SVG Bar Chart & Lapses List */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -299,19 +334,19 @@ export default function DashboardPage() {
               <line x1="0" y1="50" x2="340" y2="50" stroke="var(--ny-border)" strokeDasharray="3 3" strokeWidth="1" opacity="0.6" />
               <line x1="0" y1="0" x2="340" y2="0" stroke="var(--ny-border)" strokeDasharray="3 3" strokeWidth="1" opacity="0.3" />
 
-              {/* Bar 1: Licences (20/40) — Weakest Component! Highlighted in Orange */}
+              {/* Bar 1: Licences — Weakest Component! Highlighted in Orange */}
               <g
                 className="cursor-pointer"
                 onClick={() => openSheet("licence", "lic_001")}
                 tabIndex={0}
                 role="button"
-                aria-label="Licences pillar: 20 of 40 points"
+                aria-label={`Licences: ${licenceBreakdown?.score || 20} of ${licenceBreakdown?.max || 40} points`}
               >
                 <rect
                   x="20"
-                  y="50"
+                  y={100 - ((licenceBreakdown?.score || 20) / (licenceBreakdown?.max || 40)) * 100}
                   width="50"
-                  height="50"
+                  height={((licenceBreakdown?.score || 20) / (licenceBreakdown?.max || 40)) * 100}
                   rx="6"
                   fill="var(--ny-accent)"
                   style={{
@@ -320,30 +355,30 @@ export default function DashboardPage() {
                     transition: "transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s",
                   }}
                 />
-                <text x="45" y="42" textAnchor="middle" fontSize="11" fontWeight="bold" fill="var(--ny-accent)">
-                  20/40
+                <text x="45" y={100 - ((licenceBreakdown?.score || 20) / (licenceBreakdown?.max || 40)) * 100 - 8} textAnchor="middle" fontSize="11" fontWeight="bold" fill="var(--ny-accent)">
+                  {licenceBreakdown?.score || 20}/{licenceBreakdown?.max || 40}
                 </text>
                 <text x="45" y="118" textAnchor="middle" fontSize="10" fontWeight="600" fill="var(--ny-text)">
                   Licences
                 </text>
                 <text x="45" y="130" textAnchor="middle" fontSize="9" fill="var(--ny-muted)">
-                  -20 pts
+                  -{licenceBreakdown?.lost || 20} pts
                 </text>
               </g>
 
-              {/* Bar 2: Invoices (20/30) */}
+              {/* Bar 2: Invoices */}
               <g
                 className="cursor-pointer"
                 onClick={() => openSheet("invoice", "inv_001")}
                 tabIndex={0}
                 role="button"
-                aria-label="Invoices pillar: 20 of 30 points"
+                aria-label={`Invoices: ${invoiceBreakdown?.score || 20} of ${invoiceBreakdown?.max || 30} points`}
               >
                 <rect
                   x="105"
-                  y="33"
+                  y={100 - ((invoiceBreakdown?.score || 20) / (invoiceBreakdown?.max || 30)) * 100}
                   width="50"
-                  height="67"
+                  height={((invoiceBreakdown?.score || 20) / (invoiceBreakdown?.max || 30)) * 100}
                   rx="6"
                   fill="var(--ny-forest)"
                   style={{
@@ -352,30 +387,30 @@ export default function DashboardPage() {
                     transition: "transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s",
                   }}
                 />
-                <text x="130" y="25" textAnchor="middle" fontSize="11" fontWeight="bold" fill="var(--ny-forest)">
-                  20/30
+                <text x="130" y={100 - ((invoiceBreakdown?.score || 20) / (invoiceBreakdown?.max || 30)) * 100 - 8} textAnchor="middle" fontSize="11" fontWeight="bold" fill="var(--ny-forest)">
+                  {invoiceBreakdown?.score || 20}/{invoiceBreakdown?.max || 30}
                 </text>
                 <text x="130" y="118" textAnchor="middle" fontSize="10" fontWeight="600" fill="var(--ny-text)">
                   Invoices
                 </text>
                 <text x="130" y="130" textAnchor="middle" fontSize="9" fill="var(--ny-muted)">
-                  -10 pts
+                  -{invoiceBreakdown?.lost || 10} pts
                 </text>
               </g>
 
-              {/* Bar 3: CA Flags (7/15) */}
+              {/* Bar 3: CA Flags */}
               <g
                 className="cursor-pointer"
                 onClick={() => openSheet("flag", "flag_001")}
                 tabIndex={0}
                 role="button"
-                aria-label="CA Flags pillar: 7 of 15 points"
+                aria-label={`CA Flags: ${flagBreakdown?.score || 7} of ${flagBreakdown?.max || 15} points`}
               >
                 <rect
                   x="190"
-                  y="53"
+                  y={100 - ((flagBreakdown?.score || 7) / (flagBreakdown?.max || 15)) * 100}
                   width="50"
-                  height="47"
+                  height={((flagBreakdown?.score || 7) / (flagBreakdown?.max || 15)) * 100}
                   rx="6"
                   fill="var(--ny-forest)"
                   style={{
@@ -384,29 +419,29 @@ export default function DashboardPage() {
                     transition: "transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s",
                   }}
                 />
-                <text x="215" y="45" textAnchor="middle" fontSize="11" fontWeight="bold" fill="var(--ny-forest)">
-                  7/15
+                <text x="215" y={100 - ((flagBreakdown?.score || 7) / (flagBreakdown?.max || 15)) * 100 - 8} textAnchor="middle" fontSize="11" fontWeight="bold" fill="var(--ny-forest)">
+                  {flagBreakdown?.score || 7}/{flagBreakdown?.max || 15}
                 </text>
                 <text x="215" y="118" textAnchor="middle" fontSize="10" fontWeight="600" fill="var(--ny-text)">
                   CA Flags
                 </text>
                 <text x="215" y="130" textAnchor="middle" fontSize="9" fill="var(--ny-muted)">
-                  -8 pts
+                  -{flagBreakdown?.lost || 8} pts
                 </text>
               </g>
 
-              {/* Bar 4: Filings (15/15) */}
+              {/* Bar 4: Filings */}
               <g
                 className="cursor-pointer"
                 tabIndex={0}
                 role="button"
-                aria-label="Filings pillar: 15 of 15 points"
+                aria-label={`Filings: ${filingBreakdown?.score || 15} of ${filingBreakdown?.max || 15} points`}
               >
                 <rect
                   x="275"
-                  y="0"
+                  y={100 - ((filingBreakdown?.score || 15) / (filingBreakdown?.max || 15)) * 100}
                   width="50"
-                  height="100"
+                  height={((filingBreakdown?.score || 15) / (filingBreakdown?.max || 15)) * 100}
                   rx="6"
                   fill="var(--ny-forest)"
                   style={{
@@ -416,7 +451,7 @@ export default function DashboardPage() {
                   }}
                 />
                 <text x="300" y="-6" textAnchor="middle" fontSize="11" fontWeight="bold" fill="var(--ny-forest)">
-                  15/15
+                  {filingBreakdown?.score || 15}/{filingBreakdown?.max || 15}
                 </text>
                 <text x="300" y="118" textAnchor="middle" fontSize="10" fontWeight="600" fill="var(--ny-text)">
                   Filings
@@ -431,7 +466,7 @@ export default function DashboardPage() {
           <div className="pt-3 border-t border-[var(--ny-border)] flex items-center justify-between text-xs text-[var(--ny-muted)]">
             <span className="flex items-center gap-1.5 font-medium">
               <span className="h-2.5 w-2.5 rounded-full bg-[var(--ny-accent)]" />
-              Weakest: Licences (-20 pts deduction)
+              Weakest: Licences (-{licenceBreakdown?.lost || 20} pts deduction)
             </span>
             <span>Click any bar to audit</span>
           </div>
@@ -450,11 +485,11 @@ export default function DashboardPage() {
                   key={idx}
                   className="py-3 flex items-center justify-between gap-3 hover:bg-[var(--ny-bg)] px-3 rounded-xl transition-colors cursor-pointer"
                   onClick={() => {
-                    if (item.label.includes("Licence")) {
+                    if (item.category === "Licences") {
                       openSheet("licence", "lic_001");
-                    } else if (item.label.includes("Invoice")) {
+                    } else if (item.category === "Invoices") {
                       openSheet("invoice", "inv_001");
-                    } else if (item.label.includes("CA Flags")) {
+                    } else if (item.category === "CA Flags") {
                       openSheet("flag", "flag_001");
                     }
                   }}
@@ -463,17 +498,17 @@ export default function DashboardPage() {
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      if (item.label.includes("Licence")) openSheet("licence", "lic_001");
-                      else if (item.label.includes("Invoice")) openSheet("invoice", "inv_001");
-                      else if (item.label.includes("CA Flags")) openSheet("flag", "flag_001");
+                      if (item.category === "Licences") openSheet("licence", "lic_001");
+                      else if (item.category === "Invoices") openSheet("invoice", "inv_001");
+                      else if (item.category === "CA Flags") openSheet("flag", "flag_001");
                     }
                   }}
-                  aria-label={`Fix issue: ${item.label}`}
+                  aria-label={`Fix issue: ${item.category}`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <div
                       className={`h-8 w-8 rounded-full flex items-center justify-center shrink-0 ${
-                        item.pointsLost > 0
+                        item.lost > 0
                           ? "bg-[var(--ny-status-red-bg)] text-[var(--ny-status-red)] border border-[var(--ny-status-red-border)]"
                           : "bg-[var(--ny-status-green-bg)] text-[var(--ny-status-green)] border border-[var(--ny-status-green-border)]"
                       }`}
@@ -481,9 +516,9 @@ export default function DashboardPage() {
                       <AlertTriangle className="h-4 w-4" aria-hidden="true" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs font-bold text-[var(--ny-text)] truncate">{item.label}</p>
-                      <p className="text-[11px] text-[var(--ny-muted)]">
-                        Component weight: {item.max} max pts
+                      <p className="text-xs font-bold text-[var(--ny-text)] truncate">{item.category}</p>
+                      <p className="text-[11px] text-[var(--ny-muted)] truncate">
+                        {item.reasons[0] || `Max points: ${item.max}`}
                       </p>
                     </div>
                   </div>
@@ -491,14 +526,14 @@ export default function DashboardPage() {
                   <div className="flex items-center gap-3 shrink-0">
                     <span
                       className={`text-xs font-bold ${
-                        item.pointsLost > 0 ? "text-[var(--ny-status-red)]" : "text-[var(--ny-status-green)]"
+                        item.lost > 0 ? "text-[var(--ny-status-red)]" : "text-[var(--ny-status-green)]"
                       }`}
                     >
-                      {item.pointsLost > 0 ? `-${item.pointsLost} pts` : "0 pts"}
+                      {item.lost > 0 ? `-${item.lost} pts` : "0 pts"}
                     </span>
                     <span className="text-xs text-[var(--ny-forest)] font-semibold flex items-center gap-0.5">
                       {t("viewAction")}
-                      <ArrowRight className="h-3 w-3" aria-hidden="true" />
+                      <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                     </span>
                   </div>
                 </div>
@@ -506,7 +541,7 @@ export default function DashboardPage() {
             </div>
           </CardContent>
           <div className="pt-3 border-t border-[var(--ny-border)] text-xs text-[var(--ny-muted)]">
-            Resolving licence expiry adds up to +20 points
+            Resolving licence expiry adds up to +{licenceBreakdown?.lost || 20} points
           </div>
         </Card>
       </div>
