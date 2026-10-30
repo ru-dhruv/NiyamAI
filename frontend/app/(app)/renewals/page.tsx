@@ -11,6 +11,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { ErrorState } from "@/components/ui/error-state";
 import { useDetailSheet } from "@/components/shell/DetailSheet";
 import { getLicences, getRenewalOffices } from "@/mocks/loader";
+import { downloadRenewalPdf } from "@/lib/pdf";
 import type { Licence, RenewalOffice } from "@/mocks/types";
 
 export default function RenewalsPage() {
@@ -59,6 +60,10 @@ export default function RenewalsPage() {
   const licencesDue = licences.filter((l) => l.status === "expiring" || l.status === "expired");
 
   const handleDownloadPdf = () => {
+    const targetLicence = licencesDue[0] || licences[0];
+    if (targetLicence) {
+      downloadRenewalPdf(targetLicence);
+    }
     setDownloadSuccess(true);
     setTimeout(() => setDownloadSuccess(false), 4000);
   };

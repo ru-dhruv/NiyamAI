@@ -83,6 +83,30 @@ const STATUTORY_RULES: Record<string, ChatCitation> = {
     source_url: "https://gst.gov.in",
     last_verified: "2026-10-20",
   },
+  TAX_CALCULATION_MISMATCH: {
+    rule_code: "TAX_CALCULATION_MISMATCH",
+    title: "Tax Computation Disparity on Invoice",
+    legal_reference: "Section 73 and Section 122(3) of CGST Act, 2017",
+    penalty_formula: "10% of tax amount or ₹10,000, whichever is higher, plus 18% p.a. interest under Section 50",
+    source_url: "https://gst.gov.in",
+    last_verified: "2026-10-29",
+  },
+  TRADE_LIC_LAPSE: {
+    rule_code: "TRADE_LIC_LAPSE",
+    title: "Municipal Corporation Trade Licence Expired",
+    legal_reference: "Bhopal Municipal Corporation Act, Section 366",
+    penalty_formula: "Statutory fine of ₹500 plus 200% (2x) of normal renewal fees, or issuance of commercial closure notice",
+    source_url: "https://bhopalmunicipal.com",
+    last_verified: "2026-10-29",
+  },
+  FSSAI_MISSING: {
+    rule_code: "FSSAI_MISSING",
+    title: "Food Business Missing Mandatory FSSAI Registration",
+    legal_reference: "Section 31 and Section 58 of Food Safety and Standards Act, 2006",
+    penalty_formula: "Imprisonment up to 6 months and statutory fine up to ₹5,00,000 for operating without active registration",
+    source_url: "https://foscos.fssai.gov.in",
+    last_verified: "2026-10-29",
+  },
 };
 
 /**

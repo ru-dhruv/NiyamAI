@@ -20,6 +20,7 @@ import {
   RefreshCw,
   Sparkles,
   FileCheck2,
+  Download,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatusChip } from "@/components/ui/status-chip";
@@ -42,6 +43,7 @@ import {
   setFlagStatus,
 } from "@/lib/api";
 import { useAuth } from "@/lib/auth";
+import { downloadRenewalPdf } from "@/lib/pdf";
 import type {
   Licence,
   Invoice,
@@ -291,6 +293,27 @@ export function LicenceDetailBody({ id }: { id?: string }) {
             {licence.type.replace(/\s+/g, "_")}_{licence.number.slice(-4)}.pdf
           </span>
         </div>
+      </div>
+
+      {/* Renewal PDF Generation (PRD Feature F9 & Acceptance Story #7) */}
+      <div className="p-4 rounded-[20px] bg-[#e5f3ee] dark:bg-[#0d5b44]/20 border border-[var(--ny-forest)]/30 space-y-3">
+        <div>
+          <h4 className="font-heading font-bold text-sm text-[var(--ny-text)]">
+            Pre-filled Statutory Renewal Form
+          </h4>
+          <p className="text-xs text-[var(--ny-muted)] mt-0.5 leading-relaxed">
+            Download an official, pre-filled renewal application draft containing your verified registration and business credentials.
+          </p>
+        </div>
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={() => downloadRenewalPdf(licence)}
+          className="gap-2 rounded-full font-bold text-xs w-full sm:w-auto"
+        >
+          <Download className="h-3.5 w-3.5" aria-hidden="true" />
+          <span>Download Renewal PDF</span>
+        </Button>
       </div>
 
       {/* Delete action */}
