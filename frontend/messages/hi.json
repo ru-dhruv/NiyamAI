@@ -1,0 +1,286 @@
+{
+  "common": {
+    "appName": "NiyamAI",
+    "appTagline": "[TODO] Compliance Health Score for Indian SMBs",
+    "loading": "[TODO] Loading compliance data...",
+    "retry": "[TODO] Retry",
+    "cancel": "[TODO] Cancel",
+    "save": "[TODO] Save Changes",
+    "close": "[TODO] Close",
+    "back": "[TODO] Back",
+    "indicativeNotice": "[TODO] Guidance only. All penalty figures and scores are indicative and based on automated rule checks. Please verify with a qualified Chartered Accountant.",
+    "verifiedDate": "[TODO] Last verified",
+    "emptyFix": "[TODO] Fix Now",
+    "search": "[TODO] Search...",
+    "filter": "[TODO] Filter",
+    "all": "[TODO] All",
+    "status": "[TODO] Status",
+    "action": "[TODO] Action",
+    "details": "[TODO] Details",
+    "viewDetails": "[TODO] View details",
+    "currency": "₹"
+  },
+  "nav": {
+    "dashboard": "[TODO] Dashboard",
+    "licences": "[TODO] Licences",
+    "invoices": "[TODO] Invoices",
+    "penalties": "[TODO] Penalties & Risk",
+    "ca": "[TODO] CA Workspace",
+    "calendar": "[TODO] Calendar",
+    "savings": "[TODO] Tax Savings",
+    "renewals": "[TODO] Renewals",
+    "account": "[TODO] Account",
+    "signOut": "[TODO] Sign out",
+    "switchLanguage": "[TODO] Language",
+    "themeLight": "[TODO] Light",
+    "themeDark": "[TODO] Dark"
+  },
+  "status": {
+    "valid": "[TODO] Valid",
+    "expiring": "[TODO] Expiring Soon",
+    "expired": "[TODO] Expired",
+    "lowRisk": "[TODO] Low Risk",
+    "mediumRisk": "[TODO] Medium Risk",
+    "highRisk": "[TODO] High Risk",
+    "open": "[TODO] Open",
+    "needsInfo": "[TODO] Needs Info",
+    "resolved": "[TODO] Resolved"
+  },
+  "topBar": {
+    "menu": "[TODO] Open navigation menu",
+    "notifications": "[TODO] Notifications",
+    "notificationsCount": "[TODO] {count} due or overdue items",
+    "noNotifications": "[TODO] No items due",
+    "account": "[TODO] Account menu"
+  },
+  "drawer": {
+    "healthScoreLabel": "[TODO] Health Score",
+    "closeMenu": "[TODO] Close navigation menu"
+  },
+  "sheet": {
+    "licenceTitle": "[TODO] Licence Details",
+    "addLicenceTitle": "[TODO] Add Licence",
+    "invoiceTitle": "[TODO] Invoice Audit",
+    "penaltyRuleTitle": "[TODO] Penalty Rule",
+    "flagTitle": "[TODO] CA Flag",
+    "calendarItemTitle": "[TODO] Calendar Item",
+    "unsavedWarning": "[TODO] You have unsaved changes. Discard them and close?",
+    "closeSheet": "[TODO] Close detail panel",
+    "saveLicence": "[TODO] Save Licence"
+  },
+  "dashboard": {
+    "title": "[TODO] Dashboard",
+    "healthScoreTitle": "[TODO] Compliance Health Score",
+    "healthScoreDesc": "[TODO] Calculated from your verified licences and GST invoice audits",
+    "penaltyExposureTitle": "[TODO] Penalty Exposure",
+    "penaltyExposureSubtitle": "[TODO] Indicative potential liability",
+    "penaltyExposureNotice": "[TODO] Indicative estimate only. Actual penalties subject to regulatory assessment.",
+    "dueIn30DaysTitle": "[TODO] Due in 30 Days",
+    "dueIn30DaysEmpty": "[TODO] No filings or licence renewals due within 30 days.",
+    "quickActionsTitle": "[TODO] Quick Actions",
+    "addLicenceAction": "[TODO] Add licence",
+    "checkInvoiceAction": "[TODO] Check invoice",
+    "scoreImpactTitle": "[TODO] What is Lowering Your Score",
+    "scoreImpactSubtitle": "[TODO] Address these items to raise your Compliance Health Score",
+    "pointsLost": "[TODO] -{points} pts",
+    "viewAction": "[TODO] Fix"
+  },
+  "licences": {
+    "title": "[TODO] Licences & Registrations",
+    "subtitle": "[TODO] Track and verify mandatory business licences",
+    "addLicenceButton": "[TODO] Add licence",
+    "tableHeadLicence": "[TODO] Licence",
+    "tableHeadNumber": "[TODO] Number",
+    "tableHeadExpiry": "[TODO] Expiry Date",
+    "tableHeadStatus": "[TODO] Status",
+    "emptyMessage": "[TODO] No licences have been added yet.",
+    "addFirstLicence": "[TODO] Add Your First Licence",
+    "confidenceLabel": "[TODO] AI Confidence: {score}%",
+    "daysRemaining": "[TODO] {days} days remaining",
+    "expiredAgo": "[TODO] Expired {days} days ago"
+  },
+  "invoices": {
+    "title": "[TODO] Invoice Audits",
+    "subtitle": "[TODO] Automated GST compliance and checksum verification",
+    "uploadTitle": "[TODO] Drop invoice (PDF or Photo)",
+    "uploadSubtitle": "[TODO] Gemini AI reads fields; rule table audits GSTIN and maths",
+    "uploadButton": "[TODO] Select Invoice File",
+    "tableHeadInvoice": "[TODO] Invoice No.",
+    "tableHeadParty": "[TODO] Party / GSTIN",
+    "tableHeadAmount": "[TODO] Total Amount",
+    "tableHeadRisk": "[TODO] Risk Level",
+    "tableHeadIssue": "[TODO] Identified Issue",
+    "emptyMessage": "[TODO] No invoices audited yet.",
+    "auditFirstInvoice": "[TODO] Audit First Invoice",
+    "cleanInvoice": "[TODO] All rule checks passed (clean invoice)"
+  },
+  "penalties": {
+    "title": "[TODO] Penalties & Risk Reference",
+    "disclaimer": "[TODO] Guidance only, not legal or tax advice. Verified against official notifications as of {date}.",
+    "openLapsesTitle": "[TODO] Open Compliance Lapses",
+    "openLapsesSubtitle": "[TODO] Current lapses contributing to penalty exposure",
+    "tableHeadLapse": "[TODO] Lapse / Trigger",
+    "tableHeadRuleCode": "[TODO] Rule Code",
+    "tableHeadEstPenalty": "[TODO] Indicative Penalty",
+    "rulesDirectoryTitle": "[TODO] Compliance Rules Directory",
+    "tableHeadLegalRef": "[TODO] Legal Reference",
+    "tableHeadFormula": "[TODO] Penalty Formula (Indicative)",
+    "tableHeadVerified": "[TODO] Verified Date",
+    "emptyLapses": "[TODO] No open compliance lapses detected."
+  },
+  "ca": {
+    "title": "[TODO] CA Collaboration Workspace",
+    "subtitle": "[TODO] Review flagged items and communicate with your Chartered Accountant",
+    "filterAll": "[TODO] All Flags",
+    "filterOpen": "[TODO] Open",
+    "filterNeedsInfo": "[TODO] Needs Info",
+    "filterResolved": "[TODO] Resolved",
+    "tableHeadItem": "[TODO] Item Reference",
+    "tableHeadNote": "[TODO] Owner Note",
+    "tableHeadComments": "[TODO] CA Responses",
+    "emptyFlags": "[TODO] No flagged compliance items for CA review.",
+    "flagItemButton": "[TODO] Flag New Item",
+    "addComment": "[TODO] Add reply note"
+  },
+  "calendar": {
+    "title": "[TODO] Compliance Calendar",
+    "subtitle": "[TODO] Statutory filing deadlines and licence renewal dates",
+    "overdueSection": "[TODO] Overdue Filings",
+    "upcomingSection": "[TODO] Upcoming Deadlines",
+    "emptyMonth": "[TODO] No scheduled compliance events for this month.",
+    "daysOverdue": "[TODO] {days} days overdue"
+  },
+  "savings": {
+    "title": "[TODO] Tax Savings Opportunities",
+    "subtitle": "[TODO] Proactive suggestions based on compliance and GST input credit rules",
+    "estimateLabel": "[TODO] Estimate",
+    "disclaimer": "[TODO] These figures are indicative estimates to be evaluated with your CA.",
+    "emptySavings": "[TODO] No tax savings suggestions available currently."
+  },
+  "renewals": {
+    "title": "[TODO] Licence Renewals",
+    "subtitle": "[TODO] Pre-filled renewal documents and nearby facilitation centres",
+    "downloadPdf": "[TODO] Generate Pre-filled Renewal Form (PDF)",
+    "officesTitle": "[TODO] Nearest Municipal & Regulatory Centres (Bhopal)",
+    "emptyRenewals": "[TODO] No licences currently require renewal action."
+  },
+  "account": {
+    "title": "[TODO] Account & Business Settings",
+    "subtitle": "[TODO] Manage business entity data, CA access, and reminder channels",
+    "businessSection": "[TODO] Business Entity Details",
+    "businessName": "[TODO] Business Name",
+    "gstin": "[TODO] GSTIN",
+    "cityState": "[TODO] City & State",
+    "businessType": "[TODO] Business Type",
+    "caSection": "[TODO] Chartered Accountant Access",
+    "caEmailLabel": "[TODO] Invite CA Email",
+    "inviteCaButton": "[TODO] Send Invitation",
+    "remindersSection": "[TODO] Notification Channel",
+    "languageSection": "[TODO] Preferred Language",
+    "saveSettings": "[TODO] Save Settings"
+  },
+  "auth": {
+    "loginTitle": "[TODO] Sign in to NiyamAI",
+    "loginSubtitle": "[TODO] Access your compliance ledger and health score",
+    "emailLabel": "[TODO] Email address",
+    "passwordLabel": "[TODO] Password",
+    "signInButton": "[TODO] Sign in",
+    "onboardingTitle": "[TODO] Setup Your Business Entity",
+    "onboardingSubtitle": "[TODO] Step 1 of 3: Required compliance rules depend on these details",
+    "finishOnboarding": "[TODO] Complete Setup & View Score"
+  },
+  "landing": {
+    "nav": {
+      "howItWorks": "[TODO] How it works",
+      "features": "[TODO] Features",
+      "demo": "[TODO] Demo",
+      "faq": "[TODO] FAQ",
+      "tryDemo": "[TODO] Try demo"
+    },
+    "hero": {
+      "badge": "[TODO] Built for small food businesses in India",
+      "headlinePrefix": "[TODO] Know your compliance status in ",
+      "headlineHighlight": "[TODO] five seconds",
+      "headlineSuffix": ".",
+      "subtext": "[TODO] Licences, GST invoice verification, and one unified Compliance Health Score. Built specifically for Indian grocery stores, restaurants, and food operators.",
+      "tryOwner": "[TODO] Try demo as Owner",
+      "tryCa": "[TODO] Try demo as CA",
+      "note": "[TODO] No signup needed for the demo."
+    },
+    "checksStrip": {
+      "title": "[TODO] Checks against statutory standards:"
+    },
+    "features": {
+      "eyebrow": "[TODO] WHAT NIYAMAI DOES",
+      "title": "[TODO] Three layers of proactive compliance checking",
+      "subtitle": "[TODO] From photo extraction to deterministic rule execution, without manual calculation errors.",
+      "card1Title": "[TODO] Licence Scan",
+      "card1Desc": "[TODO] Upload a photo or PDF of FSSAI, Fire NOC, or Trade Licence. OCR extracts key fields and checks validity instantly.",
+      "card2Title": "[TODO] Invoice Audit",
+      "card2Desc": "[TODO] Checks vendor GSTIN checksums via Mod-36 and verifies tax amount matches taxable value.",
+      "card3Title": "[TODO] Penalty Rules",
+      "card3Desc": "[TODO] Deterministic legal rule tables calculate indicative penalties based on official regulatory notifications."
+    },
+    "stats": {
+      "eyebrow": "[TODO] SAMPLE MVP SCOPE",
+      "title": "[TODO] Targeted compliance engine for the Bhopal pilot",
+      "subtitle": "[TODO] All figures shown below reflect sample data and current MVP test scope, not customer metrics.",
+      "sampleNotice": "[TODO] Sample demo data",
+      "stat1Value": "3",
+      "stat1Label": "[TODO] Licences tracked (FSSAI, Fire NOC, Trade)",
+      "stat2Value": "8",
+      "stat2Label": "[TODO] Automated invoice rule checks",
+      "stat3Value": "Rule Table",
+      "stat3Label": "[TODO] Rule table with last-verified date",
+      "stat4Value": "EN & HI",
+      "stat4Label": "[TODO] Hindi & English language interface"
+    },
+    "howItWorks": {
+      "eyebrow": "[TODO] STEP-BY-STEP PROCESS",
+      "title": "[TODO] From document upload to peace of mind",
+      "subtitle": "[TODO] A transparent five-step workflow designed for business owners and their CAs.",
+      "step1Title": "[TODO] 1. Upload",
+      "step1Desc": "[TODO] Snap a photo of your licence or drop an invoice PDF.",
+      "step2Title": "[TODO] 2. AI Reads",
+      "step2Desc": "[TODO] Extracts dates, registration numbers, line items, and GSTINs.",
+      "step3Title": "[TODO] 3. Code Checks",
+      "step3Desc": "[TODO] Mathematical checksums and statutory rule tables evaluate risk.",
+      "step4Title": "[TODO] 4. Score Updates",
+      "step4Desc": "[TODO] Compliance Health Score recalculates with clear point deductions.",
+      "step5Title": "[TODO] 5. Flag to CA",
+      "step5Desc": "[TODO] Collaborate directly on discrepancies before filing deadlines.",
+      "btnPrimary": "[TODO] Explore Live Demo",
+      "btnSecondary": "[TODO] View Rules Directory"
+    },
+    "quote": {
+      "text": "[TODO] AI reads the document. Code decides the penalty.",
+      "explanation": "[TODO] Every rupee in penalty exposure is calculated directly from published statutory rule tables, never hallucinated by large language models."
+    },
+    "faq": {
+      "eyebrow": "[TODO] FREQUENTLY ASKED QUESTIONS",
+      "title": "[TODO] Everything you need to know",
+      "subtitle": "[TODO] Clear answers about data privacy, statutory legalities, and platform scope.",
+      "q1": "[TODO] Is this legal or tax advice?",
+      "a1": "[TODO] No. NiyamAI provides informational compliance health tracking and automated statutory checks. All penalty calculations and risk alerts are indicative guidance. Always consult your qualified Chartered Accountant for legal and tax filings.",
+      "q2": "[TODO] Where does my document data go?",
+      "a2": "[TODO] Your uploaded licences and invoices are processed securely and audited against rule sets. In demo mode, all data resides in local sample storage and is never shared with third parties.",
+      "q3": "[TODO] Which licences are supported in the MVP?",
+      "a3": "[TODO] The current MVP pilot supports FSSAI Food Business Operator registration, Municipal Corporation Trade Licences (Bhopal pilot), and Commercial Premises Fire Safety NOCs.",
+      "q4": "[TODO] Does the platform work in Hindi?",
+      "a4": "[TODO] Yes! NiyamAI supports both Hindi and English with full Devanagari typography support, allowing business owners and staff to review compliance in their preferred language.",
+      "cardTitle": "[TODO] Still deciding?",
+      "cardDesc": "[TODO] Try the interactive demo with real-world Bhopal food retail sample data. No registration or credit card needed.",
+      "cardBtn": "[TODO] Try demo now"
+    },
+    "footer": {
+      "desc": "[TODO] Compliance Health Score for Indian small businesses. Track licences, audit GST invoices, and avoid statutory penalties with deterministic rule verification.",
+      "col1Title": "[TODO] Platform",
+      "col2Title": "[TODO] Licences",
+      "col3Title": "[TODO] Statutory",
+      "col4Title": "[TODO] About",
+      "team": "Team Dead Neurons",
+      "disclaimer": "[TODO] Guidance, not legal or tax advice. NiyamAI provides automated compliance indicators based on publicly available regulatory schedules."
+    }
+  }
+}
+
