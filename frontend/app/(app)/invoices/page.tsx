@@ -18,7 +18,7 @@ import type { Invoice } from "@/mocks/types";
 export default function InvoicesPage() {
   const t = useTranslations("invoices");
   const { openSheet } = useDetailSheet();
-  const { isCA } = useAuth();
+  const { isCA, ready } = useAuth();
 
   const [invoices, setInvoices] = React.useState<Invoice[]>([]);
   const [loading, setLoading] = React.useState(true);
@@ -90,7 +90,7 @@ export default function InvoicesPage() {
       </div>
 
       {/* Upload Box & 3 Demo Samples (Hidden for CA) */}
-      {!isCA && (
+      {(!ready || !isCA) && (
         <Card className="p-7 rounded-[22px] border border-dashed border-[var(--ny-border)] bg-[var(--ny-bg)]">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4 text-center sm:text-left">

@@ -17,7 +17,7 @@ import type { Flag } from "@/mocks/types";
 export default function CaWorkspacePage() {
   const t = useTranslations("ca");
   const { openSheet } = useDetailSheet();
-  const { isCA, user } = useAuth();
+  const { isCA, user, ready } = useAuth();
 
   const [flags, setFlags] = React.useState<Flag[]>([]);
   const [filter, setFilter] = React.useState<"all" | "open" | "needs-info" | "resolved">("all");
@@ -71,7 +71,7 @@ export default function CaWorkspacePage() {
             <h1 className="font-heading font-extrabold text-3xl sm:text-4xl text-[var(--ny-text)] tracking-tight">
               {t("title")}
             </h1>
-            {isCA && (
+            {ready && isCA && (
               <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#e5f3ee] text-[var(--ny-forest)] border border-[var(--ny-forest)]/30">
                 CA Portal
               </span>
@@ -172,7 +172,7 @@ export default function CaWorkspacePage() {
                     {flag.comments.length} advice thread item{flag.comments.length === 1 ? "" : "s"}
                   </span>
                   <span>•</span>
-                  <span>Created {new Date(flag.createdAt).toLocaleDateString()}</span>
+                  <span>Created {flag.createdAt ? flag.createdAt.substring(0, 10) : ""}</span>
                 </div>
               </div>
 

@@ -942,7 +942,7 @@ export function PenaltyRuleDetailBody({ id }: { id?: string }) {
 
 // ── 5. Flag Detail Body (CA Collaboration) ──────────────────────────────────
 export function FlagDetailBody({ id }: { id?: string }) {
-  const { isCA, user } = useAuth();
+  const { isCA, user, ready } = useAuth();
   const [flag, setFlag] = React.useState<Flag | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
@@ -1023,7 +1023,7 @@ export function FlagDetailBody({ id }: { id?: string }) {
       </div>
 
       {/* CA Status Controls */}
-      {isCA && (
+      {ready && isCA && (
         <div className="p-3.5 rounded-[18px] bg-[#e5f3ee] dark:bg-[#0d5b44]/20 border border-[var(--ny-forest)]/30 space-y-2">
           <span className="text-xs font-bold text-[var(--ny-forest)] block">
             CA Workflow Status Action:
@@ -1073,7 +1073,7 @@ export function FlagDetailBody({ id }: { id?: string }) {
               <div className="flex justify-between items-center text-xs">
                 <span className="font-bold text-[var(--ny-forest)]">{comm.author}</span>
                 <span className="text-[10px] text-[var(--ny-muted)]">
-                  {new Date(comm.createdAt).toLocaleDateString()}
+                  {comm.createdAt ? comm.createdAt.substring(0, 10) : ""}
                 </span>
               </div>
               <p className="text-xs text-[var(--ny-text)] leading-relaxed">{comm.text}</p>

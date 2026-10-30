@@ -9,13 +9,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ErrorState } from "@/components/ui/error-state";
 import { useLanguage } from "@/components/language-provider";
 import { getBusiness, getUser } from "@/mocks/loader";
-import { useAuth } from "@/lib/auth";
 import type { Business, User as UserType } from "@/mocks/types";
 
 export default function AccountPage() {
   const t = useTranslations("account");
   const { locale, setLocale } = useLanguage();
-  const { isCA, user: authUser } = useAuth();
 
   const [user, setUser] = React.useState<UserType | null>(null);
   const [business, setBusiness] = React.useState<Business | null>(null);
