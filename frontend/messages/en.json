@@ -1,0 +1,286 @@
+{
+  "common": {
+    "appName": "NiyamAI",
+    "appTagline": "Compliance Health Score for Indian SMBs",
+    "loading": "Loading compliance data...",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save Changes",
+    "close": "Close",
+    "back": "Back",
+    "indicativeNotice": "Guidance only. All penalty figures and scores are indicative and based on automated rule checks. Please verify with a qualified Chartered Accountant.",
+    "verifiedDate": "Last verified",
+    "emptyFix": "Fix Now",
+    "search": "Search...",
+    "filter": "Filter",
+    "all": "All",
+    "status": "Status",
+    "action": "Action",
+    "details": "Details",
+    "viewDetails": "View details",
+    "currency": "₹"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "licences": "Licences",
+    "invoices": "Invoices",
+    "penalties": "Penalties & Risk",
+    "ca": "CA Workspace",
+    "calendar": "Calendar",
+    "savings": "Tax Savings",
+    "renewals": "Renewals",
+    "account": "Account",
+    "signOut": "Sign out",
+    "switchLanguage": "Language",
+    "themeLight": "Light",
+    "themeDark": "Dark"
+  },
+  "status": {
+    "valid": "Valid",
+    "expiring": "Expiring Soon",
+    "expired": "Expired",
+    "lowRisk": "Low Risk",
+    "mediumRisk": "Medium Risk",
+    "highRisk": "High Risk",
+    "open": "Open",
+    "needsInfo": "Needs Info",
+    "resolved": "Resolved"
+  },
+  "topBar": {
+    "menu": "Open navigation menu",
+    "notifications": "Notifications",
+    "notificationsCount": "{count} due or overdue items",
+    "noNotifications": "No items due",
+    "account": "Account menu"
+  },
+  "drawer": {
+    "healthScoreLabel": "Health Score",
+    "closeMenu": "Close navigation menu"
+  },
+  "sheet": {
+    "licenceTitle": "Licence Details",
+    "addLicenceTitle": "Add Licence",
+    "invoiceTitle": "Invoice Audit",
+    "penaltyRuleTitle": "Penalty Rule",
+    "flagTitle": "CA Flag",
+    "calendarItemTitle": "Calendar Item",
+    "unsavedWarning": "You have unsaved changes. Discard them and close?",
+    "closeSheet": "Close detail panel",
+    "saveLicence": "Save Licence"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "healthScoreTitle": "Compliance Health Score",
+    "healthScoreDesc": "Calculated from your verified licences and GST invoice audits",
+    "penaltyExposureTitle": "Penalty Exposure",
+    "penaltyExposureSubtitle": "Indicative potential liability",
+    "penaltyExposureNotice": "Indicative estimate only. Actual penalties subject to regulatory assessment.",
+    "dueIn30DaysTitle": "Due in 30 Days",
+    "dueIn30DaysEmpty": "No filings or licence renewals due within 30 days.",
+    "quickActionsTitle": "Quick Actions",
+    "addLicenceAction": "Add licence",
+    "checkInvoiceAction": "Check invoice",
+    "scoreImpactTitle": "What is Lowering Your Score",
+    "scoreImpactSubtitle": "Address these items to raise your Compliance Health Score",
+    "pointsLost": "-{points} pts",
+    "viewAction": "Fix"
+  },
+  "licences": {
+    "title": "Licences & Registrations",
+    "subtitle": "Track and verify mandatory business licences",
+    "addLicenceButton": "Add licence",
+    "tableHeadLicence": "Licence",
+    "tableHeadNumber": "Number",
+    "tableHeadExpiry": "Expiry Date",
+    "tableHeadStatus": "Status",
+    "emptyMessage": "No licences have been added yet.",
+    "addFirstLicence": "Add Your First Licence",
+    "confidenceLabel": "AI Confidence: {score}%",
+    "daysRemaining": "{days} days remaining",
+    "expiredAgo": "Expired {days} days ago"
+  },
+  "invoices": {
+    "title": "Invoice Audits",
+    "subtitle": "Automated GST compliance and checksum verification",
+    "uploadTitle": "Drop invoice (PDF or Photo)",
+    "uploadSubtitle": "Gemini AI reads fields; rule table audits GSTIN and maths",
+    "uploadButton": "Select Invoice File",
+    "tableHeadInvoice": "Invoice No.",
+    "tableHeadParty": "Party / GSTIN",
+    "tableHeadAmount": "Total Amount",
+    "tableHeadRisk": "Risk Level",
+    "tableHeadIssue": "Identified Issue",
+    "emptyMessage": "No invoices audited yet.",
+    "auditFirstInvoice": "Audit First Invoice",
+    "cleanInvoice": "All rule checks passed (clean invoice)"
+  },
+  "penalties": {
+    "title": "Penalties & Risk Reference",
+    "disclaimer": "Guidance only, not legal or tax advice. Verified against official notifications as of {date}.",
+    "openLapsesTitle": "Open Compliance Lapses",
+    "openLapsesSubtitle": "Current lapses contributing to penalty exposure",
+    "tableHeadLapse": "Lapse / Trigger",
+    "tableHeadRuleCode": "Rule Code",
+    "tableHeadEstPenalty": "Indicative Penalty",
+    "rulesDirectoryTitle": "Compliance Rules Directory",
+    "tableHeadLegalRef": "Legal Reference",
+    "tableHeadFormula": "Penalty Formula (Indicative)",
+    "tableHeadVerified": "Verified Date",
+    "emptyLapses": "No open compliance lapses detected."
+  },
+  "ca": {
+    "title": "CA Collaboration Workspace",
+    "subtitle": "Review flagged items and communicate with your Chartered Accountant",
+    "filterAll": "All Flags",
+    "filterOpen": "Open",
+    "filterNeedsInfo": "Needs Info",
+    "filterResolved": "Resolved",
+    "tableHeadItem": "Item Reference",
+    "tableHeadNote": "Owner Note",
+    "tableHeadComments": "CA Responses",
+    "emptyFlags": "No flagged compliance items for CA review.",
+    "flagItemButton": "Flag New Item",
+    "addComment": "Add reply note"
+  },
+  "calendar": {
+    "title": "Compliance Calendar",
+    "subtitle": "Statutory filing deadlines and licence renewal dates",
+    "overdueSection": "Overdue Filings",
+    "upcomingSection": "Upcoming Deadlines",
+    "emptyMonth": "No scheduled compliance events for this month.",
+    "daysOverdue": "{days} days overdue"
+  },
+  "savings": {
+    "title": "Tax Savings Opportunities",
+    "subtitle": "Proactive suggestions based on compliance and GST input credit rules",
+    "estimateLabel": "Estimate",
+    "disclaimer": "These figures are indicative estimates to be evaluated with your CA.",
+    "emptySavings": "No tax savings suggestions available currently."
+  },
+  "renewals": {
+    "title": "Licence Renewals",
+    "subtitle": "Pre-filled renewal documents and nearby facilitation centres",
+    "downloadPdf": "Generate Pre-filled Renewal Form (PDF)",
+    "officesTitle": "Nearest Municipal & Regulatory Centres (Bhopal)",
+    "emptyRenewals": "No licences currently require renewal action."
+  },
+  "account": {
+    "title": "Account & Business Settings",
+    "subtitle": "Manage business entity data, CA access, and reminder channels",
+    "businessSection": "Business Entity Details",
+    "businessName": "Business Name",
+    "gstin": "GSTIN",
+    "cityState": "City & State",
+    "businessType": "Business Type",
+    "caSection": "Chartered Accountant Access",
+    "caEmailLabel": "Invite CA Email",
+    "inviteCaButton": "Send Invitation",
+    "remindersSection": "Notification Channel",
+    "languageSection": "Preferred Language",
+    "saveSettings": "Save Settings"
+  },
+  "auth": {
+    "loginTitle": "Sign in to NiyamAI",
+    "loginSubtitle": "Access your compliance ledger and health score",
+    "emailLabel": "Email address",
+    "passwordLabel": "Password",
+    "signInButton": "Sign in",
+    "onboardingTitle": "Setup Your Business Entity",
+    "onboardingSubtitle": "Step 1 of 3: Required compliance rules depend on these details",
+    "finishOnboarding": "Complete Setup & View Score"
+  },
+  "landing": {
+    "nav": {
+      "howItWorks": "How it works",
+      "features": "Features",
+      "demo": "Demo",
+      "faq": "FAQ",
+      "tryDemo": "Try demo"
+    },
+    "hero": {
+      "badge": "Built for small food businesses in India",
+      "headlinePrefix": "Know your compliance status in ",
+      "headlineHighlight": "five seconds",
+      "headlineSuffix": ".",
+      "subtext": "Licences, GST invoice verification, and one unified Compliance Health Score. Built specifically for Indian grocery stores, restaurants, and food operators.",
+      "tryOwner": "Try demo as Owner",
+      "tryCa": "Try demo as CA",
+      "note": "No signup needed for the demo."
+    },
+    "checksStrip": {
+      "title": "Checks against statutory standards:"
+    },
+    "features": {
+      "eyebrow": "WHAT NIYAMAI DOES",
+      "title": "Three layers of proactive compliance checking",
+      "subtitle": "From photo extraction to deterministic rule execution, without manual calculation errors.",
+      "card1Title": "Licence Scan",
+      "card1Desc": "Upload a photo or PDF of FSSAI, Fire NOC, or Trade Licence. OCR extracts key fields and checks validity instantly.",
+      "card2Title": "Invoice Audit",
+      "card2Desc": "Checks vendor GSTIN checksums via Mod-36 and verifies tax amount matches taxable value.",
+      "card3Title": "Penalty Rules",
+      "card3Desc": "Deterministic legal rule tables calculate indicative penalties based on official regulatory notifications."
+    },
+    "stats": {
+      "eyebrow": "SAMPLE MVP SCOPE",
+      "title": "Targeted compliance engine for the Bhopal pilot",
+      "subtitle": "All figures shown below reflect sample data and current MVP test scope, not customer metrics.",
+      "sampleNotice": "Sample demo data",
+      "stat1Value": "3",
+      "stat1Label": "Licences tracked (FSSAI, Fire NOC, Trade)",
+      "stat2Value": "8",
+      "stat2Label": "Automated invoice rule checks",
+      "stat3Value": "Rule Table",
+      "stat3Label": "Rule table with last-verified date",
+      "stat4Value": "EN & HI",
+      "stat4Label": "Hindi & English language interface"
+    },
+    "howItWorks": {
+      "eyebrow": "STEP-BY-STEP PROCESS",
+      "title": "From document upload to peace of mind",
+      "subtitle": "A transparent five-step workflow designed for business owners and their CAs.",
+      "step1Title": "1. Upload",
+      "step1Desc": "Snap a photo of your licence or drop an invoice PDF.",
+      "step2Title": "2. AI Reads",
+      "step2Desc": "Extracts dates, registration numbers, line items, and GSTINs.",
+      "step3Title": "3. Code Checks",
+      "step3Desc": "Mathematical checksums and statutory rule tables evaluate risk.",
+      "step4Title": "4. Score Updates",
+      "step4Desc": "Compliance Health Score recalculates with clear point deductions.",
+      "step5Title": "5. Flag to CA",
+      "step5Desc": "Collaborate directly on discrepancies before filing deadlines.",
+      "btnPrimary": "Explore Live Demo",
+      "btnSecondary": "View Rules Directory"
+    },
+    "quote": {
+      "text": "AI reads the document. Code decides the penalty.",
+      "explanation": "Every rupee in penalty exposure is calculated directly from published statutory rule tables, never hallucinated by large language models."
+    },
+    "faq": {
+      "eyebrow": "FREQUENTLY ASKED QUESTIONS",
+      "title": "Everything you need to know",
+      "subtitle": "Clear answers about data privacy, statutory legalities, and platform scope.",
+      "q1": "Is this legal or tax advice?",
+      "a1": "No. NiyamAI provides informational compliance health tracking and automated statutory checks. All penalty calculations and risk alerts are indicative guidance. Always consult your qualified Chartered Accountant for legal and tax filings.",
+      "q2": "Where does my document data go?",
+      "a2": "Your uploaded licences and invoices are processed securely and audited against rule sets. In demo mode, all data resides in local sample storage and is never shared with third parties.",
+      "q3": "Which licences are supported in the MVP?",
+      "a3": "The current MVP pilot supports FSSAI Food Business Operator registration, Municipal Corporation Trade Licences (Bhopal pilot), and Commercial Premises Fire Safety NOCs.",
+      "q4": "Does the platform work in Hindi?",
+      "a4": "Yes! NiyamAI supports both Hindi and English with full Devanagari typography support, allowing business owners and staff to review compliance in their preferred language.",
+      "cardTitle": "Still deciding?",
+      "cardDesc": "Try the interactive demo with real-world Bhopal food retail sample data. No registration or credit card needed.",
+      "cardBtn": "Try demo now"
+    },
+    "footer": {
+      "desc": "Compliance Health Score for Indian small businesses. Track licences, audit GST invoices, and avoid statutory penalties with deterministic rule verification.",
+      "col1Title": "Platform",
+      "col2Title": "Licences",
+      "col3Title": "Statutory",
+      "col4Title": "About",
+      "team": "Team Dead Neurons",
+      "disclaimer": "Guidance, not legal or tax advice. NiyamAI provides automated compliance indicators based on publicly available regulatory schedules."
+    }
+  }
+}
+

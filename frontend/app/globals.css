@@ -1,0 +1,240 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── NiyamAI Design Tokens ──────────────────────────────────────────────── */
+:root {
+  /* Palette */
+  --ny-bg:           #f2f5f3;   /* pale sage page background */
+  --ny-surface:      #ffffff;   /* card / panel surface */
+  --ny-forest:       #0d5b44;   /* primary green — buttons, active items, highlighted words */
+  --ny-forest-deep:  #0a2a21;   /* dark section bg, drawer bg, footer bg */
+  --ny-accent:       #f0703f;   /* orange — decoration only, NOT for status chips */
+  --ny-text:         #0f1714;   /* primary body text */
+  --ny-muted:        #4b5854;   /* secondary / muted text */
+  --ny-border:       #dde8e3;   /* card borders */
+  --ny-scrim:        rgba(10, 42, 33, 0.50);
+
+  /* Status colours — NEVER replaced by orange */
+  --ny-status-green:        #157347;
+  --ny-status-green-bg:     #edf7f2;
+  --ny-status-green-border: #bce3cd;
+
+  --ny-status-amber:        #b45309;
+  --ny-status-amber-bg:     #fef7ed;
+  --ny-status-amber-border: #fed7aa;
+
+  --ny-status-red:          #b42318;
+  --ny-status-red-bg:       #fef3f2;
+  --ny-status-red-border:   #fecdca;
+
+  /* Radii */
+  --ny-radius-pill:    9999px;
+  --ny-radius-card:    22px;
+  --ny-radius-frame:   36px;
+  --ny-radius-control: 12px;
+  --ny-radius-sm:       6px;
+
+  /* Shadows */
+  --ny-shadow-1: 0 1px 2px rgba(51, 64, 60, 0.10);
+  --ny-shadow-2: 0 10px 30px rgba(51, 64, 60, 0.12);
+  --ny-shadow-3: 0 30px 70px rgba(51, 64, 60, 0.20);
+
+  /* Typography */
+  --ny-font-heading: var(--font-manrope), system-ui, sans-serif;
+  --ny-font-body:    var(--font-inter), system-ui, sans-serif;
+  --ny-font-deva:    var(--font-noto-deva), var(--font-inter), system-ui, sans-serif;
+}
+
+/* Dark mode */
+.dark {
+  --ny-bg:           #0a1a15;
+  --ny-surface:      #0f261f;
+  --ny-forest:       #2bd99f;
+  --ny-forest-deep:  #051510;
+  --ny-accent:       #f0703f;
+  --ny-text:         #e6f0ec;
+  --ny-muted:        #8fa59d;
+  --ny-border:       #1e3d33;
+  --ny-scrim:        rgba(0, 0, 0, 0.70);
+
+  --ny-status-green:        #34d399;
+  --ny-status-green-bg:     #062b1b;
+  --ny-status-green-border: #0e4e32;
+
+  --ny-status-amber:        #fbbf24;
+  --ny-status-amber-bg:     #2d1e07;
+  --ny-status-amber-border: #5a3a0e;
+
+  --ny-status-red:          #f87171;
+  --ny-status-red-bg:       #301011;
+  --ny-status-red-border:   #5c1d1e;
+}
+
+/* ─── Base Reset ─────────────────────────────────────────────────────────── */
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--ny-bg);
+  color: var(--ny-text);
+  font-family: var(--ny-font-body);
+  font-size: 15px;
+  line-height: 22px;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Focus Ring — dark green ────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--ny-forest);
+  outline-offset: 2px;
+}
+
+/* ─── Typography helpers ─────────────────────────────────────────────────── */
+.ny-heading {
+  font-family: var(--ny-font-heading);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.ny-eyebrow {
+  font-family: var(--ny-font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+/* ─── Scroll-reveal animation system ────────────────────────────────────── */
+@keyframes ny-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ny-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Elements with .ny-reveal start invisible; JS adds .ny-in to play animation */
+.ny-reveal {
+  opacity: 0;
+}
+.ny-reveal.ny-in {
+  animation: ny-rise 0.6s cubic-bezier(0, 0, 0.58, 1) both;
+}
+
+/* Stagger delays for sibling cards */
+.ny-delay-1 { animation-delay: 0.10s; }
+.ny-delay-2 { animation-delay: 0.20s; }
+.ny-delay-3 { animation-delay: 0.30s; }
+.ny-delay-4 { animation-delay: 0.40s; }
+
+/* ─── Hover lift ─────────────────────────────────────────────────────────── */
+.ny-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ny-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ny-shadow-2);
+}
+
+/* ─── Drawer transitions ─────────────────────────────────────────────────── */
+.drawer-enter {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.drawer-exit {
+  transition: transform 200ms cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ─── Bar chart grow animation ───────────────────────────────────────────── */
+.ny-bar {
+  transform-origin: bottom;
+  transform: scaleY(0);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ny-bar.ny-bar-in {
+  transform: scaleY(1);
+}
+
+/* ─── Count-up number ────────────────────────────────────────────────────── */
+.ny-count {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* ─── Reduced-motion overrides ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ny-reveal {
+    opacity: 1;
+  }
+  .ny-reveal.ny-in {
+    animation: ny-fade 0.2s ease both;
+  }
+
+  .ny-bar {
+    transform: scaleY(1);
+  }
+  .ny-lift:hover {
+    transform: none;
+    box-shadow: var(--ny-shadow-1);
+  }
+  .drawer-enter,
+  .drawer-exit {
+    transition: opacity 200ms ease !important;
+  }
+}
+
+/* ─── Landing page section spacing helpers ───────────────────────────────── */
+.ny-section {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+@media (max-width: 640px) {
+  .ny-section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+.ny-container {
+  max-width: 74rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* ─── FAQ accordion ─────────────────────────────────────────────────────── */
+.ny-faq-details summary {
+  list-style: none;
+  cursor: pointer;
+}
+.ny-faq-details summary::-webkit-details-marker {
+  display: none;
+}
+.ny-faq-details[open] .ny-faq-icon {
+  transform: rotate(45deg);
+}
+.ny-faq-icon {
+  transition: transform 0.3s ease;
+}
+.ny-faq-body {
+  overflow: hidden;
+}

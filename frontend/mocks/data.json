@@ -1,0 +1,313 @@
+{
+  "user": {
+    "uid": "usr_001",
+    "role": "owner",
+    "name": "Ramesh Sharma",
+    "language": "en",
+    "businessIds": ["biz_001"]
+  },
+  "business": {
+    "id": "biz_001",
+    "name": "Sharma Kirana & Food Mart",
+    "gstin": "23AABCU9603R1ZJ",
+    "type": "food",
+    "city": "Bhopal",
+    "state": "Madhya Pradesh",
+    "ownerUid": "usr_001",
+    "caUids": ["usr_ca_001"],
+    "healthScore": 62,
+    "penaltyExposure": 25000,
+    "scoreBreakdown": [
+      {
+        "label": "Licences (Fire NOC expired, FSSAI expiring)",
+        "pointsLost": 20,
+        "max": 40
+      },
+      {
+        "label": "Invoices (1 invalid GSTIN, 1 tax mismatch)",
+        "pointsLost": 10,
+        "max": 30
+      },
+      {
+        "label": "Open CA Flags (1 flag pending > 7 days)",
+        "pointsLost": 8,
+        "max": 15
+      },
+      {
+        "label": "Filing Deadlines (all returns filed on time)",
+        "pointsLost": 0,
+        "max": 15
+      }
+    ]
+  },
+  "licences": [
+    {
+      "id": "lic_001",
+      "type": "FSSAI",
+      "number": "10014011001234",
+      "expiry": "2026-11-18",
+      "confidence": 0.96,
+      "holder_name": "Sharma Kirana & Food Mart",
+      "issue_date": "2021-11-19"
+    },
+    {
+      "id": "lic_002",
+      "type": "Fire NOC",
+      "number": "MP-BPL-FIRE-2023-8821",
+      "expiry": "2026-03-31",
+      "confidence": 0.91,
+      "holder_name": "Sharma Kirana",
+      "issue_date": "2023-04-01"
+    },
+    {
+      "id": "lic_003",
+      "type": "Trade Licence",
+      "number": "BMC-TRD-2025-00492",
+      "expiry": "2027-12-31",
+      "confidence": 0.98,
+      "holder_name": "Ramesh Sharma",
+      "issue_date": "2025-01-01"
+    }
+  ],
+  "invoices": [
+    {
+      "id": "inv_001",
+      "extracted": {
+        "invoice_number": "INV-2026-041",
+        "date": "2026-10-18",
+        "seller_gstin": "27AAACR4849R4ZI",
+        "buyer_gstin": "23AABCU9603R1ZJ",
+        "taxable_value": 45000.0,
+        "tax_rate": 0.18,
+        "tax_amount": 8100.0,
+        "total": 53100.0,
+        "currency": "INR"
+      },
+      "issues": [
+        {
+          "rule_code": "GSTIN_INVALID",
+          "message": "Seller GSTIN fails standard Mod-36 checksum character check"
+        }
+      ],
+      "risk": "high",
+      "status": "flagged"
+    },
+    {
+      "id": "inv_002",
+      "extracted": {
+        "invoice_number": "SUP-88291",
+        "date": "2026-10-22",
+        "seller_gstin": "23ABCDE1234F1Z5",
+        "buyer_gstin": "23AABCU9603R1ZJ",
+        "taxable_value": 20000.0,
+        "tax_rate": 0.12,
+        "tax_amount": 2600.0,
+        "total": 22600.0,
+        "currency": "INR"
+      },
+      "issues": [
+        {
+          "rule_code": "TAX_AMOUNT_MISMATCH",
+          "message": "Tax amount (₹2,600) exceeds taxable_value × 12% (expected ₹2,400)"
+        }
+      ],
+      "risk": "medium",
+      "status": "active"
+    },
+    {
+      "id": "inv_003",
+      "extracted": {
+        "invoice_number": "DL-2026-1002",
+        "date": "2026-10-25",
+        "seller_gstin": "23AABCU9603R1ZJ",
+        "buyer_gstin": "23XYZAB5678K1Z2",
+        "taxable_value": 15000.0,
+        "tax_rate": 0.05,
+        "tax_amount": 750.0,
+        "total": 15750.0,
+        "currency": "INR"
+      },
+      "issues": [],
+      "risk": "low",
+      "status": "active"
+    },
+    {
+      "id": "inv_004",
+      "extracted": {
+        "invoice_number": "KIRANA-994",
+        "date": "2026-10-27",
+        "seller_gstin": "23AABCU9603R1ZJ",
+        "buyer_gstin": null,
+        "taxable_value": 8500.0,
+        "tax_rate": 0.05,
+        "tax_amount": 425.0,
+        "total": 8925.0,
+        "currency": "INR"
+      },
+      "issues": [],
+      "risk": "low",
+      "status": "active"
+    }
+  ],
+  "flags": [
+    {
+      "id": "flag_001",
+      "itemRef": "invoices/inv_001",
+      "note": "Seller GSTIN on invoice INV-2026-041 is flagged as checksum invalid. Vendor insists it is active on portal.",
+      "status": "open",
+      "createdBy": "usr_001",
+      "createdAt": "2026-10-20T11:30:00Z",
+      "comments": [
+        {
+          "id": "comm_001",
+          "author": "CA Rajesh Verma",
+          "text": "Checked the GST portal. The 14th character on physical bill has a typo (I vs 1). Please ask vendor to issue an amended invoice copy.",
+          "createdAt": "2026-10-21T09:15:00Z"
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "rule_code": "FSSAI_EXPIRED",
+      "title": "FSSAI Food Business Operator Licence Expired",
+      "legal_reference": "TODO verify",
+      "penalty_formula": "TODO verify",
+      "source_url": "",
+      "last_verified": ""
+    },
+    {
+      "rule_code": "FSSAI_EXPIRING",
+      "title": "FSSAI Licence Expiring Within 30 Days",
+      "legal_reference": "TODO verify",
+      "penalty_formula": "TODO verify",
+      "source_url": "",
+      "last_verified": ""
+    },
+    {
+      "rule_code": "FIRE_NOC_EXPIRED",
+      "title": "Commercial Premises Fire Safety NOC Expired",
+      "legal_reference": "TODO verify",
+      "penalty_formula": "TODO verify",
+      "source_url": "",
+      "last_verified": ""
+    },
+    {
+      "rule_code": "FIRE_NOC_EXPIRING",
+      "title": "Fire NOC Expiring Within 30 Days",
+      "legal_reference": "TODO verify",
+      "penalty_formula": "TODO verify",
+      "source_url": "",
+      "last_verified": ""
+    },
+    {
+      "rule_code": "TRADE_LIC_EXPIRED",
+      "title": "Municipal Corporation Trade Licence Expired",
+      "legal_reference": "TODO verify",
+      "penalty_formula": "TODO verify",
+      "source_url": "",
+      "last_verified": ""
+    },
+    {
+      "rule_code": "GSTIN_INVALID",
+      "title": "Invalid GSTIN or Checksum Mismatch on Tax Invoice",
+      "legal_reference": "TODO verify",
+      "penalty_formula": "TODO verify",
+      "source_url": "",
+      "last_verified": ""
+    },
+    {
+      "rule_code": "TAX_AMOUNT_MISMATCH",
+      "title": "GST Tax Amount Does Not Equal Rate Multiplied by Taxable Value",
+      "legal_reference": "TODO verify",
+      "penalty_formula": "TODO verify",
+      "source_url": "",
+      "last_verified": ""
+    }
+  ],
+  "calendar": [
+    {
+      "id": "cal_001",
+      "title": "Fire NOC Annual Safety Audit & Renewal",
+      "dueDate": "2026-03-31",
+      "category": "licence",
+      "linkedRef": "lic_002",
+      "status": "overdue",
+      "daysLeft": -212
+    },
+    {
+      "id": "cal_002",
+      "title": "FSSAI Renewal Application Filing",
+      "dueDate": "2026-11-18",
+      "category": "licence",
+      "linkedRef": "lic_001",
+      "status": "due-soon",
+      "daysLeft": 20
+    },
+    {
+      "id": "cal_003",
+      "title": "GSTR-3B Monthly Return Filing (October 2026)",
+      "dueDate": "2026-11-20",
+      "category": "gst",
+      "linkedRef": "gst_oct_2026",
+      "status": "due-soon",
+      "daysLeft": 22
+    },
+    {
+      "id": "cal_004",
+      "title": "GSTR-1 Monthly Outward Supplies (November 2026)",
+      "dueDate": "2026-12-11",
+      "category": "gst",
+      "linkedRef": "gst_nov_2026",
+      "status": "upcoming",
+      "daysLeft": 43
+    }
+  ],
+  "taxSavings": [
+    {
+      "id": "sav_001",
+      "title": "Reclaim Unclaimed GST Input Tax Credit (ITC)",
+      "reason": "Two verified clean supplier invoices from Q2 have eligible ITC not yet matched in GSTR-2B.",
+      "estimatedRupees": 8550,
+      "category": "GST Input Credit"
+    },
+    {
+      "id": "sav_002",
+      "title": "FSSAI Renewal Advance Discount",
+      "reason": "Submitting online renewal > 30 days before expiry avoids standard statutory late penalty.",
+      "estimatedRupees": 2000,
+      "category": "Penalty Avoidance"
+    },
+    {
+      "id": "sav_003",
+      "title": "Reverse Charge Mechanism (RCM) Optimization",
+      "reason": "Auditing unregistered transport invoices ensures timely RCM claim before annual filing cut-off.",
+      "estimatedRupees": 4200,
+      "category": "Operational Optimization"
+    }
+  ],
+  "renewalOffices": [
+    {
+      "name": "Bhopal Municipal Corporation — Trade Licence Cell",
+      "address": "Harshwardhan Complex, Mata Mandir, Bhopal, MP 462003",
+      "city": "Bhopal",
+      "contact": "+91 755 2540220",
+      "timing": "10:00 AM – 5:30 PM (Mon–Fri)"
+    },
+    {
+      "name": "Food Safety & Standards Authority (FSSAI) Regional Office",
+      "address": "Idgah Hills, Near TB Hospital Road, Bhopal, MP 462001",
+      "city": "Bhopal",
+      "contact": "+91 755 2661842",
+      "timing": "09:30 AM – 5:00 PM (Mon–Fri)"
+    },
+    {
+      "name": "Madhya Pradesh Fire Services Directorate",
+      "address": "Police Headquarters Campus, Jahangirabad, Bhopal, MP 462008",
+      "city": "Bhopal",
+      "contact": "+91 755 2443000",
+      "timing": "10:00 AM – 6:00 PM (Emergency 24x7)"
+    }
+  ]
+}
+
