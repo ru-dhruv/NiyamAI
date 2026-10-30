@@ -246,6 +246,62 @@
       "penalty_formula": "Ineligible ITC claim under Section 73/74 with mandatory tax demand and interest",
       "source_url": "https://gst.gov.in",
       "last_verified": "2026-10-20"
+    },
+    {
+      "rule_code": "TAX_CALCULATION_MISMATCH",
+      "title": "Tax Computation Disparity on Invoice",
+      "legal_reference": "Section 73 and Section 122(3) of CGST Act, 2017",
+      "penalty_formula": "10% of tax amount or ₹10,000, whichever is higher, plus 18% p.a. interest under Section 50",
+      "source_url": "https://gst.gov.in",
+      "last_verified": "2026-10-29"
+    },
+    {
+      "rule_code": "TOTAL_MISMATCH",
+      "title": "Invoice Total Amount Disparity",
+      "legal_reference": "Rule 46(m) of CGST Rules, 2017",
+      "penalty_formula": "General statutory penalty up to ₹25,000 under Section 125 of CGST Act",
+      "source_url": "https://gst.gov.in",
+      "last_verified": "2026-10-29"
+    },
+    {
+      "rule_code": "CURRENCY_NON_INR",
+      "title": "Non-INR Currency Stated on Domestic Tax Invoice",
+      "legal_reference": "Rule 46 of CGST Rules 2017 & Section 31",
+      "penalty_formula": "Defective invoice under Section 122(3); ITC disallowed until rectified with debit/credit note",
+      "source_url": "https://gst.gov.in",
+      "last_verified": "2026-10-29"
+    },
+    {
+      "rule_code": "TRADE_LIC_LAPSE",
+      "title": "Municipal Corporation Trade Licence Expired or Not Renewed",
+      "legal_reference": "Bhopal Municipal Corporation Act, Section 366",
+      "penalty_formula": "Statutory fine of ₹500 plus 200% (2x) of normal renewal fees, or issuance of commercial closure notice",
+      "source_url": "https://bhopalmunicipal.com",
+      "last_verified": "2026-10-29"
+    },
+    {
+      "rule_code": "FSSAI_MISSING",
+      "title": "Food Business Missing Mandatory FSSAI Registration",
+      "legal_reference": "Section 31 and Section 58 of Food Safety and Standards Act, 2006",
+      "penalty_formula": "Imprisonment up to 6 months and statutory fine up to ₹5,00,000 for operating without active registration",
+      "source_url": "https://fssai.gov.in",
+      "last_verified": "2026-10-29"
+    },
+    {
+      "rule_code": "OVERDUE_DEADLINE",
+      "title": "Statutory Filing Deadline Overdue",
+      "legal_reference": "Section 47 of CGST Act 2017 & Statutory Schedules",
+      "penalty_formula": "Late fee of ₹50/day (₹20/day for NIL returns) up to maximum ₹10,000 per return",
+      "source_url": "https://gst.gov.in",
+      "last_verified": "2026-10-29"
+    },
+    {
+      "rule_code": "CA_FLAG_OVERDUE",
+      "title": "Open Compliance Query Unresolved (>7 Days)",
+      "legal_reference": "NiyamAI Statutory Governance Protocol",
+      "penalty_formula": "Score reduction penalty of -5 points per unresolved audit flag exceeding 7-day threshold",
+      "source_url": "https://niyamai.in",
+      "last_verified": "2026-10-29"
     }
   ],
   "calendar": [
