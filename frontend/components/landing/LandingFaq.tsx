@@ -74,7 +74,7 @@ export function LandingFaq() {
                 <p className="text-sm text-[var(--ny-muted)] leading-relaxed mb-8">
                   {t("cardDesc")}
                 </p>
-                <Link href="/dashboard" tabIndex={-1}>
+                <Link href="/login" tabIndex={-1}>
                   <Button
                     variant="primary"
                     size="lg"

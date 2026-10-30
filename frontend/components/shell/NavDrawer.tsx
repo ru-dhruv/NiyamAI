@@ -23,6 +23,7 @@ import { ScoreRing } from "@/components/ui/score-ring";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/lib/auth";
 
 interface NavItemConfig {
   href: string;
@@ -74,6 +75,7 @@ export function NavDrawer({
   const tDrawer = useTranslations("drawer");
   const drawerRef = React.useRef<HTMLDivElement>(null);
   const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+  const { user, isCA, logout } = useAuth();
 
   // Trap focus inside the drawer when open
   React.useEffect(() => {
@@ -183,9 +185,14 @@ export function NavDrawer({
               <ScoreRing score={healthScore} size={44} strokeWidth={4} showSubtext={false} />
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-bold text-white truncate leading-tight font-heading">
-                {businessName}
-              </p>
+              <div className="flex items-center gap-1.5">
+                <p className="text-sm font-bold text-white truncate leading-tight font-heading">
+                  {user?.name || businessName}
+                </p>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/20 text-white shrink-0">
+                  {user?.role || "Owner"}
+                </span>
+              </div>
               <p className="text-xs text-[#86e2c3] leading-tight mt-1">
                 {tDrawer("healthScoreLabel")}: <span className="font-bold text-white">{healthScore}/100</span>
               </p>
@@ -271,6 +278,10 @@ export function NavDrawer({
           {/* Sign out */}
           <Button
             variant="ghost"
+            onClick={() => {
+              logout();
+              onClose();
+            }}
             className="w-full justify-start gap-3 text-[#fca5a5] hover:text-[#fee2e2] hover:bg-red-950/40 min-h-[44px] rounded-full"
             aria-label={tNav("signOut")}
           >

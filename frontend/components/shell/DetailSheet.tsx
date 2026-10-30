@@ -202,13 +202,8 @@ export function DetailSheet({
         {/* Sticky footer */}
         <div className="shrink-0 border-t border-[var(--ny-border)] px-5 py-4 flex justify-end gap-3 bg-[var(--ny-bg)]">
           <Button variant="secondary" onClick={handleClose} className="rounded-full">
-            {tCommon("cancel")}
+            {tCommon("close")}
           </Button>
-          {sheetType !== "licence" && sheetType !== "penalty-rule" && sheetType !== "flag" && (
-            <Button variant="primary" onClick={handleClose} className="rounded-full font-bold">
-              {sheetType === "add-licence" ? tSheet("saveLicence") : tCommon("save")}
-            </Button>
-          )}
         </div>
       </div>
     </>

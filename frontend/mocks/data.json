@@ -1,8 +1,9 @@
 {
   "user": {
     "uid": "usr_001",
-    "role": "owner",
+    "role": "Owner",
     "name": "Ramesh Sharma",
+    "email": "ramesh@sharmakiranabpl.com",
     "language": "en",
     "businessIds": ["biz_001"]
   },
@@ -17,26 +18,35 @@
     "caUids": ["usr_ca_001"],
     "healthScore": 62,
     "penaltyExposure": 25000,
+    "scoreUpdatedAt": "2026-10-30T10:00:00Z",
     "scoreBreakdown": [
       {
-        "label": "Licences (Fire NOC expired, FSSAI expiring)",
-        "pointsLost": 20,
-        "max": 40
+        "category": "Licences",
+        "score": 20,
+        "max": 40,
+        "lost": 20,
+        "reasons": ["Fire NOC: Expired on 2026-03-31", "FSSAI: Expiring in 20 days"]
       },
       {
-        "label": "Invoices (1 invalid GSTIN, 1 tax mismatch)",
-        "pointsLost": 10,
-        "max": 30
+        "category": "Invoices",
+        "score": 20,
+        "max": 30,
+        "lost": 10,
+        "reasons": ["1 invalid seller GSTIN checksum (INV-2026-041)", "1 tax amount calculation mismatch (SUP-88291)"]
       },
       {
-        "label": "Open CA Flags (1 flag pending > 7 days)",
-        "pointsLost": 8,
-        "max": 15
+        "category": "CA Flags",
+        "score": 7,
+        "max": 15,
+        "lost": 8,
+        "reasons": ["1 open flagged invoice item pending CA resolution"]
       },
       {
-        "label": "Filing Deadlines (all returns filed on time)",
-        "pointsLost": 0,
-        "max": 15
+        "category": "Filing Deadlines",
+        "score": 15,
+        "max": 15,
+        "lost": 0,
+        "reasons": ["All monthly returns (GSTR-3B & GSTR-1) filed on time"]
       }
     ]
   },
@@ -48,7 +58,8 @@
       "expiry": "2026-11-18",
       "confidence": 0.96,
       "holder_name": "Sharma Kirana & Food Mart",
-      "issue_date": "2021-11-19"
+      "issue_date": "2021-11-19",
+      "fileUrl": null
     },
     {
       "id": "lic_002",
@@ -57,7 +68,8 @@
       "expiry": "2026-03-31",
       "confidence": 0.91,
       "holder_name": "Sharma Kirana",
-      "issue_date": "2023-04-01"
+      "issue_date": "2023-04-01",
+      "fileUrl": null
     },
     {
       "id": "lic_003",
@@ -66,7 +78,8 @@
       "expiry": "2027-12-31",
       "confidence": 0.98,
       "holder_name": "Ramesh Sharma",
-      "issue_date": "2025-01-01"
+      "issue_date": "2025-01-01",
+      "fileUrl": null
     }
   ],
   "invoices": [
@@ -86,11 +99,14 @@
       "issues": [
         {
           "rule_code": "GSTIN_INVALID",
-          "message": "Seller GSTIN fails standard Mod-36 checksum character check"
+          "field": "seller_gstin",
+          "message": "Seller GSTIN fails standard Mod-36 checksum character check",
+          "severity": "High"
         }
       ],
-      "risk": "high",
-      "status": "flagged"
+      "risk": "High",
+      "status": "flagged",
+      "fileUrl": null
     },
     {
       "id": "inv_002",
@@ -108,11 +124,14 @@
       "issues": [
         {
           "rule_code": "TAX_AMOUNT_MISMATCH",
-          "message": "Tax amount (₹2,600) exceeds taxable_value × 12% (expected ₹2,400)"
+          "field": "tax_amount",
+          "message": "Tax amount (₹2,600) exceeds taxable_value × 12% (expected ₹2,400)",
+          "severity": "Medium"
         }
       ],
-      "risk": "medium",
-      "status": "active"
+      "risk": "Medium",
+      "status": "active",
+      "fileUrl": null
     },
     {
       "id": "inv_003",
@@ -128,8 +147,9 @@
         "currency": "INR"
       },
       "issues": [],
-      "risk": "low",
-      "status": "active"
+      "risk": "Low",
+      "status": "active",
+      "fileUrl": null
     },
     {
       "id": "inv_004",
@@ -145,8 +165,9 @@
         "currency": "INR"
       },
       "issues": [],
-      "risk": "low",
-      "status": "active"
+      "risk": "Low",
+      "status": "active",
+      "fileUrl": null
     }
   ],
   "flags": [
@@ -161,6 +182,8 @@
         {
           "id": "comm_001",
           "author": "CA Rajesh Verma",
+          "authorUid": "usr_ca_001",
+          "authorRole": "CA",
           "text": "Checked the GST portal. The 14th character on physical bill has a typo (I vs 1). Please ask vendor to issue an amended invoice copy.",
           "createdAt": "2026-10-21T09:15:00Z"
         }
@@ -171,58 +194,58 @@
     {
       "rule_code": "FSSAI_EXPIRED",
       "title": "FSSAI Food Business Operator Licence Expired",
-      "legal_reference": "TODO verify",
-      "penalty_formula": "TODO verify",
-      "source_url": "",
-      "last_verified": ""
+      "legal_reference": "Food Safety and Standards Act 2006, Section 31",
+      "penalty_formula": "Up to ₹5,00,000 and 6 months imprisonment for operating without active licence",
+      "source_url": "https://fssai.gov.in",
+      "last_verified": "2026-10-15"
     },
     {
       "rule_code": "FSSAI_EXPIRING",
       "title": "FSSAI Licence Expiring Within 30 Days",
-      "legal_reference": "TODO verify",
-      "penalty_formula": "TODO verify",
-      "source_url": "",
-      "last_verified": ""
+      "legal_reference": "FSS (Licensing and Registration of Food Businesses) Reg. 2.1.7",
+      "penalty_formula": "₹100/day late fee if renewal not submitted at least 30 days prior to expiry",
+      "source_url": "https://foscos.fssai.gov.in",
+      "last_verified": "2026-10-15"
     },
     {
       "rule_code": "FIRE_NOC_EXPIRED",
       "title": "Commercial Premises Fire Safety NOC Expired",
-      "legal_reference": "TODO verify",
-      "penalty_formula": "TODO verify",
-      "source_url": "",
-      "last_verified": ""
+      "legal_reference": "MP Fire Safety Act & Municipal Building Bye-Laws",
+      "penalty_formula": "Sealing of commercial premises and indicative municipal compound penalty ₹25,000",
+      "source_url": "https://fire.mp.gov.in",
+      "last_verified": "2026-10-10"
     },
     {
       "rule_code": "FIRE_NOC_EXPIRING",
       "title": "Fire NOC Expiring Within 30 Days",
-      "legal_reference": "TODO verify",
-      "penalty_formula": "TODO verify",
-      "source_url": "",
-      "last_verified": ""
+      "legal_reference": "National Building Code 2016 Part 4",
+      "penalty_formula": "Requires mandatory annual physical audit inspection prior to renewal endorsement",
+      "source_url": "https://fire.mp.gov.in",
+      "last_verified": "2026-10-10"
     },
     {
       "rule_code": "TRADE_LIC_EXPIRED",
       "title": "Municipal Corporation Trade Licence Expired",
-      "legal_reference": "TODO verify",
-      "penalty_formula": "TODO verify",
-      "source_url": "",
-      "last_verified": ""
+      "legal_reference": "Bhopal Municipal Corporation Act, Section 366",
+      "penalty_formula": "₹500 penalty plus 2x normal licence renewal fees",
+      "source_url": "https://bhopalmunicipal.com",
+      "last_verified": "2026-10-01"
     },
     {
       "rule_code": "GSTIN_INVALID",
       "title": "Invalid GSTIN or Checksum Mismatch on Tax Invoice",
-      "legal_reference": "TODO verify",
-      "penalty_formula": "TODO verify",
-      "source_url": "",
-      "last_verified": ""
+      "legal_reference": "CGST Rules 2017, Rule 46(b) & Mod-36 Checksum Standard",
+      "penalty_formula": "Disallowance of Input Tax Credit (ITC) under Section 16(2) plus 18% p.a. interest",
+      "source_url": "https://gst.gov.in",
+      "last_verified": "2026-10-20"
     },
     {
       "rule_code": "TAX_AMOUNT_MISMATCH",
       "title": "GST Tax Amount Does Not Equal Rate Multiplied by Taxable Value",
-      "legal_reference": "TODO verify",
-      "penalty_formula": "TODO verify",
-      "source_url": "",
-      "last_verified": ""
+      "legal_reference": "CGST Act 2017, Section 33 & Rule 46(m)",
+      "penalty_formula": "Ineligible ITC claim under Section 73/74 with mandatory tax demand and interest",
+      "source_url": "https://gst.gov.in",
+      "last_verified": "2026-10-20"
     }
   ],
   "calendar": [
@@ -310,4 +333,3 @@
     }
   ]
 }
-

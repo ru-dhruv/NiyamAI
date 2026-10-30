@@ -1,6 +1,14 @@
 import * as React from "react";
-import { CheckCircle2, Clock, AlertCircle, ShieldCheck, AlertTriangle } from "lucide-react";
+import {
+  CheckCircle2,
+  Clock,
+  AlertCircle,
+  ShieldCheck,
+  AlertTriangle,
+  FileCheck,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
+import { mapRiskToTone } from "@/mocks/types";
 
 export type ChipStatus =
   | "valid"
@@ -9,9 +17,15 @@ export type ChipStatus =
   | "low"
   | "medium"
   | "high"
+  | "Low"
+  | "Medium"
+  | "High"
   | "resolved"
   | "needs-info"
-  | "open";
+  | "open"
+  | "active"
+  | "fixed"
+  | "flagged";
 
 interface StatusChipProps {
   status: ChipStatus;
@@ -24,52 +38,61 @@ export function StatusChip({ status, label, className }: StatusChipProps) {
   let defaultLabel = "";
   let Icon = CheckCircle2;
 
-  switch (status) {
-    case "valid":
-      tone = "green";
-      defaultLabel = "Valid";
-      Icon = ShieldCheck;
-      break;
-    case "low":
-      tone = "green";
-      defaultLabel = "Low Risk";
-      Icon = CheckCircle2;
-      break;
-    case "resolved":
-      tone = "green";
-      defaultLabel = "Resolved";
-      Icon = CheckCircle2;
-      break;
-    case "expiring":
-      tone = "amber";
-      defaultLabel = "Expiring Soon";
-      Icon = Clock;
-      break;
-    case "medium":
-      tone = "amber";
-      defaultLabel = "Medium Risk";
-      Icon = AlertTriangle;
-      break;
-    case "needs-info":
-      tone = "amber";
-      defaultLabel = "Needs Info";
-      Icon = AlertTriangle;
-      break;
-    case "expired":
-      tone = "red";
-      defaultLabel = "Expired";
-      Icon = AlertCircle;
-      break;
-    case "high":
-      tone = "red";
-      defaultLabel = "High Risk";
-      Icon = AlertCircle;
-      break;
-    case "open":
-      tone = "red";
-      defaultLabel = "Open";
-      Icon = AlertCircle;
-      break;
+  // Handle risk values using mapRiskToTone
+  const normalized = status.toLowerCase();
+  if (normalized === "low" || normalized === "medium" || normalized === "high") {
+    const riskConfig = mapRiskToTone(normalized);
+    tone = riskConfig.tone;
+    defaultLabel = riskConfig.label;
+    Icon = tone === "green" ? CheckCircle2 : tone === "amber" ? AlertTriangle : AlertCircle;
+  } else {
+    switch (status) {
+      case "valid":
+        tone = "green";
+        defaultLabel = "Valid";
+        Icon = ShieldCheck;
+        break;
+      case "fixed":
+        tone = "green";
+        defaultLabel = "Fixed";
+        Icon = CheckCircle2;
+        break;
+      case "resolved":
+        tone = "green";
+        defaultLabel = "Resolved";
+        Icon = CheckCircle2;
+        break;
+      case "expiring":
+        tone = "amber";
+        defaultLabel = "Expiring Soon";
+        Icon = Clock;
+        break;
+      case "needs-info":
+        tone = "amber";
+        defaultLabel = "Needs Info";
+        Icon = AlertTriangle;
+        break;
+      case "active":
+        tone = "amber";
+        defaultLabel = "Active";
+        Icon = Clock;
+        break;
+      case "expired":
+        tone = "red";
+        defaultLabel = "Expired";
+        Icon = AlertCircle;
+        break;
+      case "open":
+        tone = "red";
+        defaultLabel = "Open";
+        Icon = AlertCircle;
+        break;
+      case "flagged":
+        tone = "red";
+        defaultLabel = "Flagged";
+        Icon = AlertCircle;
+        break;
+    }
   }
 
   const displayLabel = label || defaultLabel;
